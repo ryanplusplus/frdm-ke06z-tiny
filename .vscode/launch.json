@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Target debug",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/stm32-tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "svdFile": "stm32f303.svd",
+      "runToMain": true,
+      "configFiles": [
+        "${workspaceFolder}/openocd-debug.cfg"
+      ],
+      "preLaunchTask": "debug-deps"
+    }
+  ]
+}
