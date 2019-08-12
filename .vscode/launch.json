@@ -12,7 +12,6 @@
       "type": "cortex-debug",
       "servertype": "openocd",
       "svdFile": "stm32f303.svd",
-      "runToMain": true,
       "configFiles": [
         "${workspaceFolder}/openocd-debug.cfg"
       ],

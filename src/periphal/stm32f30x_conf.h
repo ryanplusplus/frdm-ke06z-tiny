@@ -1,8 +1,6 @@
 /*!
  * @file
  * @brief
- *
- * Copyright GE Appliances - Confidential - All rights reserved.
  */
 
 #ifndef stm32f30x_conf_h

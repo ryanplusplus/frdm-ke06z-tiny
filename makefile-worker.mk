@@ -11,8 +11,6 @@ ifneq ($(LIB_DIRS),)
 INC_DIRS += $(shell find $(LIB_DIRS) -type d)
 endif
 
-DEFINES += __NO_SYSTEM_INIT
-
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
 
