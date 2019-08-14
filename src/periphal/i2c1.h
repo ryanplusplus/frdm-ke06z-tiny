@@ -8,6 +8,6 @@
 
 #include "i_tiny_i2c.h"
 
-i_tiny_i2c_t* i2c_init(void);
+i_tiny_i2c_t* i2c1_init(void);
 
 #endif
