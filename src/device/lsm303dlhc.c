@@ -7,7 +7,7 @@
 #include "tiny_utils.h"
 
 enum {
-  accelerometer_address = 0x01, //0x19,
+  accelerometer_address = 0x19,
   status_register = 0x27
 };
 
@@ -41,7 +41,7 @@ static void register_selected(void* context, bool success) {
     false,
     self->read_buffer,
     sizeof(self->read_buffer),
-    register_selected,
+    party,
     self);
 }
 

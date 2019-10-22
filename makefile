@@ -13,7 +13,7 @@ SRC_DIRS := \
   src \
 
 LIB_FILES := \
-	lib/st/CMSIS/Device/ST/STM32F30x/Source/Templates/system_stm32f30x.c \
+  lib/st/CMSIS/Device/ST/STM32F30x/Source/Templates/system_stm32f30x.c \
 
 LIB_DIRS := \
   lib/tiny/src \

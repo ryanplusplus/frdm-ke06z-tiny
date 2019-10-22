@@ -28,10 +28,10 @@ void clock_init(void) {
   // HCLK (AHB) = SYSCLK / 1 = 72 / 1 = 72 MHz
   RCC_HCLKConfig(RCC_SYSCLK_Div1);
 
-  // PCLK (APB1) = SYSCLK / 1 = 72 / 1 = 72 MHz
+  // PCLK (APB1) = SYSCLK / 2 = 72 / 1 = 36 MHz
   RCC_PCLK1Config(RCC_HCLK_Div1);
 
-  // PCLK2 (APB2) = SYSCLK / 2 = 72 / 2 = 36 MHz
+  // PCLK2 (APB2) = SYSCLK / 1 = 72 / 1 = 72 MHz
   RCC_PCLK2Config(RCC_HCLK_Div1);
 
   // ADCCLK = PCLK2 / 1 = 72 / 1 = 72 MHz
