@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "debug-deps",
+      "label": "f3-discovery debug-deps",
       "type": "shell",
-      "command": "make debug-deps",
+      "command": "make -f f3-discovery.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",

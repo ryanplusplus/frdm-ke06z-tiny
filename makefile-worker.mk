@@ -38,21 +38,24 @@ OBJCOPY := arm-none-eabi-objcopy
 .PHONY: all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
 
+$(BUILD_DIR)/openocd.cfg:
+	@cp $(OPENOCD_CFG)/debug.cfg $@
+
 .PHONY: debug-deps
-debug-deps: $(BUILD_DIR)/$(TARGET).elf
+debug-deps: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/openocd.cfg
 
 .PHONY: upload
 upload: $(BUILD_DIR)/$(TARGET).hex
-	@openocd -f openocd-upload.cfg
+	@openocd -f $(OPENOCD_CFG)/upload.cfg
 
 .PHONY: erase
 erase:
-	@openocd -f openocd-erase.cfg
+	@openocd -f $(OPENOCD_CFG)/erase.cfg
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(BUILD_DIR)/$(TARGET).lib
 	@echo Linking $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(LD) $(OBJS) -mcpu=$(CPU) -march=$(ARCH) -mthumb --specs=nano.specs -Wl,-Os -Wl,--gc-sections -Wl,--start-group $(BUILD_DIR)/$(TARGET).lib -Wl,--end-group -o $@ -T link.ld -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+	@$(LD) $(OBJS) -mcpu=$(CPU) -march=$(ARCH) -mthumb --specs=nano.specs -Wl,-Og -Wl,--gc-sections -Wl,--start-group $(BUILD_DIR)/$(TARGET).lib -Wl,--end-group -o $@ -T link.ld -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
 
 $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	@echo Creating $(notdir $@)...
