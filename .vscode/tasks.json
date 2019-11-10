@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "f3-discovery debug-deps",
+      "label": "stm32f3-discovery-debug-deps",
       "type": "shell",
-      "command": "make -f f3-discovery.mk debug-deps",
+      "command": "make -f stm32f3-discovery.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",

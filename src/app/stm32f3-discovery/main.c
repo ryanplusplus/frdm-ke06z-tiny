@@ -4,7 +4,7 @@
  */
 
 #include <stddef.h>
-#include "stm32f30x.h"
+#include "stm32f3xx.h"
 #include "clock.h"
 #include "systick.h"
 #include "tiny_timer.h"

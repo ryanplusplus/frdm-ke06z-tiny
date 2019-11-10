@@ -1,5 +1,5 @@
 # stm32-tiny
-Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) with STM32F303.
+Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) with STM32.
 
 ## Hardware
 ### STM32F3 Discovery
@@ -12,22 +12,22 @@ https://www.st.com/en/evaluation-tools/stm32f3discovery.html
 ## Use
 ### Compile
 ```shell
-make
+make -f <target>.mk
 ```
 
 ### Clean
 ```shell
-make clean
+make -f <target>.mk clean
 ```
 
 ### Erase via SWIM
 ```shell
-make erase
+make -f <target>.mk erase
 ```
 
 ### Flash via SWIM
 ```shell
-make upload
+make -f <target>.mk upload
 ```
 
 ## Resources

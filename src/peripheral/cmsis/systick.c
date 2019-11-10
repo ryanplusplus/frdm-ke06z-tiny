@@ -4,7 +4,7 @@
  */
 
 #include "systick.h"
-#include "stm32f30x.h"
+#include "micro.h"
 
 static struct {
   i_tiny_time_source_t interface;

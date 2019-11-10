@@ -5,17 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "f3-discovery",
+      "name": "stm32f3-discovery",
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/f3-discovery/tiny.elf",
+      "executable": "${workspaceFolder}/build/stm32f3-discovery/tiny.elf",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
       "svdFile": "${workspaceFolder}/svd/stm32f303.svd",
       "configFiles": [
-        "${workspaceRoot}/build/f3-discovery/openocd.cfg"
+        "${workspaceRoot}/build/stm32f3-discovery/openocd.cfg"
       ],
-      "preLaunchTask": "f3-discovery-debug-deps"
+      "preLaunchTask": "stm32f3-discovery-debug-deps"
     }
   ]
 }

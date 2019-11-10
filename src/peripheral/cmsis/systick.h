@@ -1,6 +1,6 @@
 /*!
  * @file
- * @brief
+ * @brief Configures 1 KHz time source using the system tick peripheral.
  */
 
 #ifndef systick_h
