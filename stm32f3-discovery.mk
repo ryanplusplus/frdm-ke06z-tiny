@@ -19,7 +19,7 @@ LIB_FILES := \
 LIB_DIRS := \
   lib/tiny/src \
   src/peripheral/cmsis \
-  src/peripheral/stm32f3xx \
+  src/peripheral/stm32xxxx \
 
 INC_DIRS := \
   lib/st/stm32f3xx/CMSIS/Include \

@@ -4,7 +4,7 @@
  */
 
 #include "watchdog.h"
-#include "stm32f3xx_ll_iwdg.h"
+#include "micro.h"
 
 void watchdog_init(void) {
   LL_IWDG_EnableWriteAccess(IWDG);
