@@ -18,6 +18,19 @@
       "preLaunchTask": "stm32f3-discovery-debug-deps"
     },
     {
+      "name": "stm32vl-discovery",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/stm32vl-discovery/tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "svdFile": "${workspaceFolder}/svd/stm32f100.svd",
+      "configFiles": [
+        "${workspaceRoot}/build/stm32vl-discovery/openocd.cfg"
+      ],
+      "preLaunchTask": "stm32vl-discovery-debug-deps"
+    },
+    {
       "name": "nucleo-g031k8",
       "cwd": "${workspaceRoot}",
       "executable": "${workspaceFolder}/build/nucleo-g031k8/tiny.elf",

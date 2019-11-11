@@ -1,6 +1,6 @@
 /*!
  * @file
- * @brief Configures clock for 16 MHz using HSI.
+ * @brief Configures clock for 24 MHz using HSE.
  */
 
 #ifndef clock_h

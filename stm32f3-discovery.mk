@@ -14,7 +14,7 @@ SRC_DIRS := \
   src/app/stm32f3-discovery \
 
 LIB_FILES := \
-  lib/st/stm32f3xx/CMSIS/Device/ST/STM32F3xx/Source/Templates/system_stm32f3xx.c \
+  lib/stm32cube/CMSIS/STM32F3xx/src/system_stm32f3xx.c \
 
 LIB_DIRS := \
   lib/tiny/src \
@@ -22,8 +22,8 @@ LIB_DIRS := \
   src/peripheral/stm32xxxx \
 
 INC_DIRS := \
-  lib/st/stm32f3xx/CMSIS/Include \
-  lib/st/stm32f3xx/CMSIS/Device/ST/STM32F3xx/Include \
-  lib/st/stm32f3xx/STM32F3xx_HAL_Driver/Inc \
+  lib/stm32cube/CMSIS/ARM/inc \
+  lib/stm32cube/CMSIS/STM32F3xx/inc \
+  lib/stm32cube/HAL/STM32F3xx/inc \
 
 include makefile-worker.mk

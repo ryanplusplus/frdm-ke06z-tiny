@@ -33,7 +33,7 @@ void default_handler(void) {
   }
 }
 
-// Cortex-M4
+// Cortex-M3
 void NMI_Handler(void) __attribute__((weak, alias("default_handler")));
 void HardFault_Handler(void) __attribute__((weak, alias("default_handler")));
 void MemManage_Handler(void) __attribute__((weak, alias("default_handler")));
@@ -48,7 +48,7 @@ void SysTick_Handler(void) __attribute__((weak, alias("default_handler")));
 void WWDG_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void PVD_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void TAMPER_STAMP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void RTC_WKUP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
+void RTC_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void FLASH_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void RCC_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void EXTI0_IRQHandler(void) __attribute__((weak, alias("default_handler")));
@@ -64,10 +64,6 @@ void DMA1_Channel5_IRQHandler(void) __attribute__((weak, alias("default_handler"
 void DMA1_Channel6_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void DMA1_Channel7_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void ADC1_2_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USB_HP_CAN1_TX_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USB_LP_CAN1_RX0_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void CAN1_RX1_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void CAN1_SCE_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void EXTI9_5_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void TIM1_BRK_TIM15_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void TIM1_UP_TIM16_IRQHandler(void) __attribute__((weak, alias("default_handler")));
@@ -87,35 +83,14 @@ void USART2_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void USART3_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void EXTI15_10_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void RTC_Alarm_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USBWakeUp_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void TIM8_BRK_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void TIM8_UP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void TIM8_TRG_COM_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void TIM8_CC_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void ADC3_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void SPI3_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void UART4_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void UART5_IRQHandler(void) __attribute__((weak, alias("default_handler")));
+void CEC_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void TIM6_DAC_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 void TIM7_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void DMA2_Channel1_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void DMA2_Channel2_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void DMA2_Channel3_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void DMA2_Channel4_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void DMA2_Channel5_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void ADC4_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void COMP1_2_3_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void COMP4_5_6_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void COMP7_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USB_HP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USB_LP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void USBWakeUp_RMP_IRQHandler(void) __attribute__((weak, alias("default_handler")));
-void FPU_IRQHandler(void) __attribute__((weak, alias("default_handler")));
 
 typedef void (*vector_t)(void);
 
 const vector_t vector_table[] __attribute__((section(".vectors"))) = {
-  // Cortex-M4
+  // Cortex-M3
   (vector_t)&_stack_top,
   reset_handler,
   NMI_Handler,
@@ -137,7 +112,7 @@ const vector_t vector_table[] __attribute__((section(".vectors"))) = {
   WWDG_IRQHandler,
   PVD_IRQHandler,
   TAMPER_STAMP_IRQHandler,
-  RTC_WKUP_IRQHandler,
+  RTC_IRQHandler,
   FLASH_IRQHandler,
   RCC_IRQHandler,
   EXTI0_IRQHandler,
@@ -153,10 +128,10 @@ const vector_t vector_table[] __attribute__((section(".vectors"))) = {
   DMA1_Channel6_IRQHandler,
   DMA1_Channel7_IRQHandler,
   ADC1_2_IRQHandler,
-  USB_HP_CAN1_TX_IRQHandler,
-  USB_LP_CAN1_RX0_IRQHandler,
-  CAN1_RX1_IRQHandler,
-  CAN1_SCE_IRQHandler,
+  0,
+  0,
+  0,
+  0,
   EXTI9_5_IRQHandler,
   TIM1_BRK_TIM15_IRQHandler,
   TIM1_UP_TIM16_IRQHandler,
@@ -176,28 +151,18 @@ const vector_t vector_table[] __attribute__((section(".vectors"))) = {
   USART3_IRQHandler,
   EXTI15_10_IRQHandler,
   RTC_Alarm_IRQHandler,
-  USBWakeUp_IRQHandler,
-  TIM8_BRK_IRQHandler,
-  TIM8_UP_IRQHandler,
-  TIM8_TRG_COM_IRQHandler,
-  TIM8_CC_IRQHandler,
-  ADC3_IRQHandler,
-  SPI3_IRQHandler,
-  UART4_IRQHandler,
-  UART5_IRQHandler,
+  CEC_IRQHandler,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
   TIM6_DAC_IRQHandler,
-  TIM7_IRQHandler,
-  DMA2_Channel1_IRQHandler,
-  DMA2_Channel2_IRQHandler,
-  DMA2_Channel3_IRQHandler,
-  DMA2_Channel4_IRQHandler,
-  DMA2_Channel5_IRQHandler,
-  ADC4_IRQHandler,
-  COMP1_2_3_IRQHandler,
-  COMP4_5_6_IRQHandler,
-  COMP7_IRQHandler,
-  USB_HP_IRQHandler,
-  USB_LP_IRQHandler,
-  USBWakeUp_RMP_IRQHandler,
-  FPU_IRQHandler
+  TIM7_IRQHandler
 };

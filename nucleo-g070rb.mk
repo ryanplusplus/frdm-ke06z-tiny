@@ -13,7 +13,7 @@ SRC_DIRS := \
   src/app/nucleo-g070rb \
 
 LIB_FILES := \
-  lib/st/stm32g0xx/CMSIS/Device/ST/STM32G0xx/Source/Templates/system_stm32g0xx.c \
+  lib/stm32cube/CMSIS/STM32G0xx/src/system_stm32g0xx.c \
 
 LIB_DIRS := \
   lib/tiny/src \
@@ -21,8 +21,8 @@ LIB_DIRS := \
   src/peripheral/stm32xxxx \
 
 INC_DIRS := \
-  lib/st/stm32g0xx/CMSIS/Include \
-  lib/st/stm32g0xx/CMSIS/Device/ST/STM32G0xx/Include \
-  lib/st/stm32g0xx/STM32G0xx_HAL_Driver/Inc \
+  lib/stm32cube/CMSIS/ARM/inc \
+  lib/stm32cube/CMSIS/STM32G0xx/inc \
+  lib/stm32cube/HAL/STM32G0xx/inc \
 
 include makefile-worker.mk
