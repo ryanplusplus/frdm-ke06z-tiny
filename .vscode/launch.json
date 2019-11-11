@@ -29,6 +29,19 @@
         "${workspaceRoot}/build/nucleo-g031k8/openocd.cfg"
       ],
       "preLaunchTask": "nucleo-g031k8-debug-deps"
+    },
+    {
+      "name": "nucleo-g070rb",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/nucleo-g070rb/tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "svdFile": "${workspaceFolder}/svd/stm32g07x.svd",
+      "configFiles": [
+        "${workspaceRoot}/build/nucleo-g070rb/openocd.cfg"
+      ],
+      "preLaunchTask": "nucleo-g070rb-debug-deps"
     }
   ]
 }
