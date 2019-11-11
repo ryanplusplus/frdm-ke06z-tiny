@@ -54,6 +54,19 @@
         "showReuseMessage": true,
         "clear": false
       }
+    },
+    {
+      "label": "blue-pill-debug-deps",
+      "type": "shell",
+      "command": "make -f blue-pill.mk debug-deps",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
     }
   ]
 }

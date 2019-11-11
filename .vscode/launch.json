@@ -55,6 +55,19 @@
         "${workspaceRoot}/build/nucleo-g070rb/openocd.cfg"
       ],
       "preLaunchTask": "nucleo-g070rb-debug-deps"
+    },
+    {
+      "name": "blue-pill",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/blue-pill/tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "svdFile": "${workspaceFolder}/svd/stm32f103.svd",
+      "configFiles": [
+        "${workspaceRoot}/build/blue-pill/openocd.cfg"
+      ],
+      "preLaunchTask": "blue-pill-debug-deps"
     }
   ]
 }
