@@ -4,6 +4,7 @@ BUILD_DIR ?= ./build/stm32f3-discovery
 CPU := cortex-m4
 ARCH := armv7e-m
 OPENOCD_CFG := openocd/stm32f3-discovery
+LINKER_CFG := ld/stm32f3-discovery.ld
 
 DEFINES := \
   STM32F303xC \
