@@ -68,6 +68,19 @@
         "${workspaceRoot}/build/blue-pill/openocd.cfg"
       ],
       "preLaunchTask": "blue-pill-debug-deps"
+    },
+    {
+      "name": "blue-f0",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/blue-f0/tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "svdFile": "${workspaceFolder}/svd/stm32f0x0.svd",
+      "configFiles": [
+        "${workspaceRoot}/build/blue-f0/openocd.cfg"
+      ],
+      "preLaunchTask": "blue-f0-debug-deps"
     }
   ]
 }
