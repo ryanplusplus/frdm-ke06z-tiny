@@ -34,9 +34,11 @@ AS      := arm-none-eabi-as
 LD      := arm-none-eabi-gcc
 AR      := arm-none-eabi-ar
 OBJCOPY := arm-none-eabi-objcopy
+SIZE    := arm-none-eabi-size
 
 .PHONY: all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
+	@$(SIZE) $<
 
 $(BUILD_DIR)/openocd.cfg:
 	@cp $(OPENOCD_CFG)/debug.cfg $@
