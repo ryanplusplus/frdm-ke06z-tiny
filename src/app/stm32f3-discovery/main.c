@@ -16,6 +16,10 @@ static tiny_timer_group_t timer_group;
 static tiny_timer_t timer;
 static tiny_message_bus_t message_bus;
 
+#include "lsm303d.h"
+#include "tiny_i2c_stm32f3xx.h"
+static lsm303d_t lsm303d;
+
 static void kick_watchdog(tiny_timer_group_t* _timer_group, void* context) {
   (void)context;
   (void)_timer_group;
@@ -31,6 +35,8 @@ void main(void) {
     tiny_timer_group_init(&timer_group, systick_init());
     heartbeat_init(&timer_group);
     tiny_message_bus_init(&message_bus);
+
+    lsm303d_init(&lsm303d, &timer_group, tiny_i2c_stm32f3xx_init());
   }
   __enable_irq();
 
