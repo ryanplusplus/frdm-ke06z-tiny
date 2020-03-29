@@ -18,12 +18,6 @@ enum {
   register_out_x_l_a = 0x28
 };
 
-static void swap_endianness(uint8_t* buffer) {
-  uint8_t temp = buffer[0];
-  buffer[0] = buffer[1];
-  buffer[1] = temp;
-}
-
 static void initialize_accelerometer(lsm303d_t* self);
 
 static void read_acceleration_complete(void* context, bool success) {
@@ -79,10 +73,6 @@ static void poll(tiny_timer_group_t* timer_group, void* context) {
 
   if(self->data_ready) {
     self->data_ready = false;
-
-    swap_endianness((uint8_t*)&self->read_buffer.acceleration.x);
-    swap_endianness((uint8_t*)&self->read_buffer.acceleration.y);
-    swap_endianness((uint8_t*)&self->read_buffer.acceleration.z);
 
     tiny_single_subscriber_event_publish(
       &self->acceleration_update,
