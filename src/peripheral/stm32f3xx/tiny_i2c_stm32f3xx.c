@@ -119,8 +119,8 @@ static const i_tiny_i2c_api_t api = { write, read, reset };
 
 i_tiny_i2c_t* tiny_i2c_stm32f3xx_init(void) {
   i2c.Instance = I2C1;
-  i2c.Init.Timing = 0x00902025; // magic, stolen from example
-  i2c.Init.AddressingMode = I2C_ADDRESSINGMODE_10BIT;
+  i2c.Init.Timing = 0x2000090E; // magic, stolen from generated code
+  i2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   i2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   i2c.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
   i2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
