@@ -90,7 +90,7 @@ static void write(
     address,
     (void*)buffer, // I hate that this cast is necessary, but it should be safe on ARM
     buffer_size,
-    prepare_for_restart ? I2C_FIRST_FRAME : I2C_FIRST_AND_LAST_FRAME);
+    prepare_for_restart ? I2C_LAST_FRAME : I2C_FIRST_AND_LAST_FRAME);
 }
 
 static void read(
