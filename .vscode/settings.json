@@ -7,5 +7,8 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "stm32f1xx_ll_system.h": "c"
+  }
 }

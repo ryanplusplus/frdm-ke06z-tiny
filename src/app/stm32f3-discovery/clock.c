@@ -8,6 +8,8 @@
 #include "clock.h"
 
 void clock_init(void) {
+  LL_FLASH_EnablePrefetch();
+
   // 48-72 MHz requires 2 wait states
   LL_FLASH_SetLatency(LL_FLASH_LATENCY_2);
 

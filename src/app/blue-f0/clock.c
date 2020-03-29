@@ -8,6 +8,8 @@
 #include "clock.h"
 
 void clock_init(void) {
+  LL_FLASH_EnablePrefetch();
+
   LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
 
   LL_RCC_HSI_Enable();
