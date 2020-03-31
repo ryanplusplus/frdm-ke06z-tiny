@@ -21,7 +21,6 @@ LIB_DIRS := \
   src/peripheral/cmsis \
   src/peripheral/stm32f3xx \
   src/peripheral/stm32xxxx \
-  lib/stm32cube/HAL/STM32F3xx/src \
 
 INC_DIRS := \
   lib/stm32cube/CMSIS/ARM/inc \

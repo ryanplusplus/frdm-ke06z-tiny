@@ -9,6 +9,7 @@
   },
   "editor.formatOnSave": true,
   "files.associations": {
-    "stm32f1xx_ll_system.h": "c"
+    "stm32f1xx_ll_system.h": "c",
+    "stm32f3xx_hal.h": "c"
   }
 }

@@ -7,17 +7,18 @@
 #include "stm32f3xx.h"
 #include "clock.h"
 #include "systick.h"
+#include "lsm303d.h"
 #include "tiny_timer.h"
 #include "watchdog.h"
 #include "heartbeat.h"
+#include "i2c1_pins.h"
+#include "tiny_i2c_i2c1.h"
 #include "tiny_message_bus.h"
 
 static tiny_timer_group_t timer_group;
 static tiny_timer_t timer;
 static tiny_message_bus_t message_bus;
 
-#include "lsm303d.h"
-#include "tiny_i2c_stm32f3xx.h"
 static lsm303d_t lsm303d;
 
 static void kick_watchdog(tiny_timer_group_t* _timer_group, void* context) {
@@ -32,11 +33,14 @@ void main(void) {
   {
     watchdog_init();
     clock_init();
+
     tiny_timer_group_init(&timer_group, systick_init());
-    heartbeat_init(&timer_group);
     tiny_message_bus_init(&message_bus);
 
-    lsm303d_init(&lsm303d, &timer_group, tiny_i2c_stm32f3xx_init());
+    heartbeat_init(&timer_group);
+
+    i2c1_pins_init();
+    lsm303d_init(&lsm303d, &timer_group, tiny_i2c_i2c1_init());
   }
   __enable_irq();
 
