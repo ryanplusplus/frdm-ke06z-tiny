@@ -23,8 +23,8 @@ https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill
 https://stm32-base.org/boards/STM32F030F4P6-STM32F030-DEMO-BOARD-V1.1
 
 ## Setup
-- Install [`gcc-arm-none-eabi`]
-- Install [`openocd`](https://github.com/ntfreak/openocd) (patches [here](http://openocd.zylin.com/#/c/4807/) for STM32G0 support)
+- Install `gcc-arm-none-eabi`
+- Install [`openocd`](https://sourceforge.net/p/openocd/code/ci/master/tree/) (build `master`from source for STM32G0 support)
 
 ## Use
 ### Compile
