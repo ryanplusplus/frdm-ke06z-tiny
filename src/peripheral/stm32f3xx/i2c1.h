@@ -7,11 +7,11 @@
  * and open drain.
  */
 
-#ifndef tiny_i2c_i2c1_h
-#define tiny_i2c_i2c1_h
+#ifndef i2c1_h
+#define i2c1_h
 
 #include "i_tiny_i2c.h"
 
-i_tiny_i2c_t* tiny_i2c_i2c1_init(void);
+i_tiny_i2c_t* i2c1_init(void);
 
 #endif

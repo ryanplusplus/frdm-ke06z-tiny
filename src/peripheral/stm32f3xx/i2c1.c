@@ -4,7 +4,7 @@
  */
 
 #include <stddef.h>
-#include "tiny_i2c_i2c1.h"
+#include "i2c1.h"
 #include "stm32f3xx_ll_bus.h"
 #include "stm32f3xx_ll_i2c.h"
 #include "stm32f3xx_ll_rcc.h"
@@ -135,7 +135,7 @@ void I2C1_ER_IRQHandler(void) {
   callback(context, false);
 }
 
-i_tiny_i2c_t* tiny_i2c_i2c1_init(void) {
+i_tiny_i2c_t* i2c1_init(void) {
   initialize_peripheral();
   instance.api = &api;
   return &instance;
