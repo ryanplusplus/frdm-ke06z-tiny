@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 #include "acceleration.h"
-#include "i_tiny_digital_output_group.h"
+#include "hal/i_tiny_digital_output_group.h"
 
 typedef struct {
   i_tiny_digital_output_group_t* leds;

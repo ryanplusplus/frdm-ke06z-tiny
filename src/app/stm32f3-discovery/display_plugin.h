@@ -8,7 +8,7 @@
 
 #include "display.h"
 #include "i_tiny_message_bus.h"
-#include "i_tiny_digital_output_group.h"
+#include "hal/i_tiny_digital_output_group.h"
 
 typedef struct {
   display_t display;

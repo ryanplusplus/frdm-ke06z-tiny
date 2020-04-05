@@ -8,7 +8,7 @@
 
 #include "i_tiny_message_bus.h"
 #include "tiny_timer.h"
-#include "i_tiny_i2c.h"
+#include "hal/i_tiny_i2c.h"
 #include "lsm303d.h"
 
 typedef struct {

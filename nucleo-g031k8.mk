@@ -24,5 +24,6 @@ INC_DIRS := \
   lib/stm32cube/CMSIS/ARM/inc \
   lib/stm32cube/CMSIS/STM32G0xx/inc \
   lib/stm32cube/HAL/STM32G0xx/inc \
+  lib/tiny/include \
 
 include makefile-worker.mk
