@@ -9,8 +9,8 @@
 #include "stm32f3xx_ll_i2c.h"
 #include "stm32f3xx_ll_rcc.h"
 
-static i_tiny_i2c_t instance;
-static tiny_i2c_callback_t callback;
+static i_tiny_async_i2c_t instance;
+static tiny_async_i2c_callback_t callback;
 static void* context;
 static struct {
   union {
@@ -55,12 +55,12 @@ static void initialize_peripheral(void) {
 }
 
 static void write(
-  i_tiny_i2c_t* self,
+  i_tiny_async_i2c_t* self,
   uint8_t address,
   bool prepare_for_restart,
   const uint8_t* _buffer,
   uint8_t _buffer_size,
-  tiny_i2c_callback_t _callback,
+  tiny_async_i2c_callback_t _callback,
   void* _context) {
   (void)self;
 
@@ -80,11 +80,12 @@ static void write(
 }
 
 static void read(
-  i_tiny_i2c_t* self,
+  i_tiny_async_i2c_t* self,
   uint8_t address,
+  bool prepare_for_restart,
   uint8_t* _buffer,
   uint8_t _buffer_size,
-  tiny_i2c_callback_t _callback,
+  tiny_async_i2c_callback_t _callback,
   void* _context) {
   (void)self;
 
@@ -99,16 +100,16 @@ static void read(
     address,
     LL_I2C_ADDRSLAVE_7BIT,
     buffer_size,
-    LL_I2C_MODE_AUTOEND,
+    prepare_for_restart ? LL_I2C_MODE_SOFTEND : LL_I2C_MODE_AUTOEND,
     LL_I2C_GENERATE_START_READ);
 }
 
-static void reset(i_tiny_i2c_t* self) {
+static void reset(i_tiny_async_i2c_t* self) {
   (void)self;
   initialize_peripheral();
 }
 
-static const i_tiny_i2c_api_t api = { write, read, reset };
+static const i_tiny_async_i2c_api_t api = { write, read, reset };
 
 void I2C1_EV_IRQHandler(void) {
   if(LL_I2C_IsActiveFlag_RXNE(I2C1)) {
@@ -135,7 +136,7 @@ void I2C1_ER_IRQHandler(void) {
   callback(context, false);
 }
 
-i_tiny_i2c_t* i2c1_init(void) {
+i_tiny_async_i2c_t* i2c1_init(void) {
   initialize_peripheral();
   instance.api = &api;
   return &instance;

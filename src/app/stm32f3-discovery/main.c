@@ -40,7 +40,7 @@ void main(void) {
     tiny_message_bus_init(&message_bus);
 
     i2c1_pins_init();
-    i_tiny_i2c_t* i2c1 = i2c1_init();
+    i_tiny_async_i2c_t* i2c1 = i2c1_init();
 
     accelerometer_plugin_init(
       &accelerometer_plugin,

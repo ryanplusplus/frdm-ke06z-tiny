@@ -16,7 +16,7 @@ void accelerometer_plugin_init(
   accelerometer_plugin_t* self,
   tiny_timer_group_t* timer_group,
   i_tiny_message_bus_t* message_bus,
-  i_tiny_i2c_t* i2c) {
+  i_tiny_async_i2c_t* i2c) {
   self->message_bus = message_bus;
 
   lsm303d_init(&self->lsm303d, timer_group, i2c);

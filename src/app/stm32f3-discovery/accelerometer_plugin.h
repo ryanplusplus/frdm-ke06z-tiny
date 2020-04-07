@@ -8,7 +8,7 @@
 
 #include "i_tiny_message_bus.h"
 #include "tiny_timer.h"
-#include "hal/i_tiny_i2c.h"
+#include "hal/i_tiny_async_i2c.h"
 #include "lsm303d.h"
 
 typedef struct {
@@ -21,6 +21,6 @@ void accelerometer_plugin_init(
   accelerometer_plugin_t* self,
   tiny_timer_group_t* timer_group,
   i_tiny_message_bus_t* message_bus,
-  i_tiny_i2c_t* i2c);
+  i_tiny_async_i2c_t* i2c);
 
 #endif

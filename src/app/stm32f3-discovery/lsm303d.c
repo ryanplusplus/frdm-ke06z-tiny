@@ -39,9 +39,10 @@ static void set_up_acceleration_read_complete(void* context, bool success) {
     initialize_accelerometer(self);
   }
   else {
-    tiny_i2c_read(
+    tiny_async_i2c_read(
       self->i2c,
       address,
+      false,
       self->read_buffer.raw,
       sizeof(self->read_buffer),
       read_acceleration_complete,
@@ -56,7 +57,7 @@ static void set_up_acceleration_read(lsm303d_t* self) {
     register_out_x_l_a | auto_increment
   };
 
-  tiny_i2c_write(
+  tiny_async_i2c_write(
     self->i2c,
     address,
     true,
@@ -111,7 +112,7 @@ static void initialize_accelerometer(lsm303d_t* self) {
     0x77 // 200 Hz, all axes enabled
   };
 
-  tiny_i2c_write(
+  tiny_async_i2c_write(
     self->i2c,
     address,
     false,
@@ -127,7 +128,7 @@ static void startup_delay_complete(tiny_timer_group_t* timer_group, void* contex
   arm_poll_timer(self, timer_group);
 }
 
-void lsm303d_init(lsm303d_t* self, tiny_timer_group_t* timer_group, i_tiny_i2c_t* i2c) {
+void lsm303d_init(lsm303d_t* self, tiny_timer_group_t* timer_group, i_tiny_async_i2c_t* i2c) {
   self->i2c = i2c;
   self->busy = false;
   self->data_ready = false;
