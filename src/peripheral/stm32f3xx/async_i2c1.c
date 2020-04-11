@@ -4,7 +4,7 @@
  */
 
 #include <stddef.h>
-#include "i2c1.h"
+#include "async_i2c1.h"
 #include "stm32f3xx_ll_bus.h"
 #include "stm32f3xx_ll_i2c.h"
 #include "stm32f3xx_ll_rcc.h"
@@ -59,7 +59,7 @@ static void write(
   uint8_t address,
   bool prepare_for_restart,
   const uint8_t* _buffer,
-  uint8_t _buffer_size,
+  uint16_t _buffer_size,
   tiny_async_i2c_callback_t _callback,
   void* _context) {
   (void)self;
@@ -84,7 +84,7 @@ static void read(
   uint8_t address,
   bool prepare_for_restart,
   uint8_t* _buffer,
-  uint8_t _buffer_size,
+  uint16_t _buffer_size,
   tiny_async_i2c_callback_t _callback,
   void* _context) {
   (void)self;
@@ -136,7 +136,7 @@ void I2C1_ER_IRQHandler(void) {
   callback(context, false);
 }
 
-i_tiny_async_i2c_t* i2c1_init(void) {
+i_tiny_async_i2c_t* async_i2c1_init(void) {
   initialize_peripheral();
   instance.api = &api;
   return &instance;

@@ -7,11 +7,11 @@
  * and open drain.
  */
 
-#ifndef i2c1_h
-#define i2c1_h
+#ifndef async_i2c1_h
+#define async_i2c1_h
 
 #include "hal/i_tiny_async_i2c.h"
 
-i_tiny_async_i2c_t* i2c1_init(void);
+i_tiny_async_i2c_t* async_i2c1_init(void);
 
 #endif

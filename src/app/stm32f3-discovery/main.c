@@ -12,7 +12,7 @@
 #include "tiny_timer.h"
 #include "watchdog.h"
 #include "i2c1_pins.h"
-#include "i2c1.h"
+#include "async_i2c1.h"
 #include "leds.h"
 #include "tiny_message_bus.h"
 
@@ -40,7 +40,7 @@ void main(void) {
     tiny_message_bus_init(&message_bus);
 
     i2c1_pins_init();
-    i_tiny_async_i2c_t* i2c1 = i2c1_init();
+    i_tiny_async_i2c_t* i2c1 = async_i2c1_init();
 
     accelerometer_plugin_init(
       &accelerometer_plugin,
