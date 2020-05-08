@@ -1,5 +1,14 @@
-SRCS := $(shell find $(SRC_DIRS) -name *.c -or -name *.s)
-LIB_SRCS := $(shell find $(LIB_DIRS) -name *.c -or -name *.s) $(LIB_FILES)
+SRCS := $(SRC_FILES)
+
+ifneq ($(SRC_DIRS),)
+SRCS += $(shell find $(SRC_DIRS) -name *.c -or -name *.s -or -name *.S)
+endif
+
+LIB_SRCS := $(LIB_FILES)
+
+ifneq ($(LIB_DIRS),)
+LIB_SRCS += $(shell find $(LIB_DIRS) -name *.c -or -name *.s -or -name *.S)
+endif
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(SRCS:%=$(BUILD_DIR)/%.d)
