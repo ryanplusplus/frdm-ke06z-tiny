@@ -7,11 +7,5 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
-  "editor.formatOnSave": true,
-  "files.associations": {
-    "stm32f1xx_ll_system.h": "c",
-    "stm32f3xx_hal.h": "c",
-    "display_plugin.h": "c",
-    "*.tcc": "c"
-  }
+  "editor.formatOnSave": true
 }
