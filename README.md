@@ -2,8 +2,11 @@
 Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) with STM32.
 
 ## Hardware
-### Blue F0
+### Blue F030
 https://stm32-base.org/boards/STM32F030F4P6-STM32F030-DEMO-BOARD-V1.1
+
+### Blue F051
+https://stm32-base.org/boards/STM32F051C8T6-LC-Technology
 
 ### Blue Pill
 https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill

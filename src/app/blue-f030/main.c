@@ -10,11 +10,9 @@
 #include "tiny_timer.h"
 #include "watchdog.h"
 #include "heartbeat.h"
-#include "tiny_message_bus.h"
 
 static tiny_timer_group_t timer_group;
 static tiny_timer_t timer;
-static tiny_message_bus_t message_bus;
 
 static void kick_watchdog(tiny_timer_group_t* _timer_group, void* context) {
   (void)context;
@@ -30,7 +28,6 @@ void main(void) {
     clock_init();
     tiny_timer_group_init(&timer_group, systick_init());
     heartbeat_init(&timer_group);
-    tiny_message_bus_init(&message_bus);
   }
   __enable_irq();
 

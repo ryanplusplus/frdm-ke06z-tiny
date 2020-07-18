@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "stm32f3-discovery-debug-deps",
+      "label": "blue-f030-debug-deps",
       "type": "shell",
-      "command": "make -f stm32f3-discovery.mk debug-deps",
+      "command": "make -f blue-f030.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",
@@ -17,9 +17,22 @@
       }
     },
     {
-      "label": "stm32vl-discovery-debug-deps",
+      "label": "blue-f051-debug-deps",
       "type": "shell",
-      "command": "make -f stm32vl-discovery.mk debug-deps",
+      "command": "make -f blue-f051.mk debug-deps",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "blue-pill-debug-deps",
+      "type": "shell",
+      "command": "make -f blue-pill.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",
@@ -56,9 +69,9 @@
       }
     },
     {
-      "label": "blue-pill-debug-deps",
+      "label": "stm32f3-discovery-debug-deps",
       "type": "shell",
-      "command": "make -f blue-pill.mk debug-deps",
+      "command": "make -f stm32f3-discovery.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",
@@ -69,9 +82,9 @@
       }
     },
     {
-      "label": "blue-f0-debug-deps",
+      "label": "stm32vl-discovery-debug-deps",
       "type": "shell",
-      "command": "make -f blue-f0.mk debug-deps",
+      "command": "make -f stm32vl-discovery.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",
