@@ -1,1 +1,0 @@
-sudo su -c 'echo "0483:3744:i" >/sys/module/usb_storage/parameters/quirks'
