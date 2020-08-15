@@ -4,3 +4,6 @@
 [submodule "lib/STM32-base-STM32Cube"]
 	path = lib/stm32cube
 	url = https://github.com/STM32-base/STM32-base-STM32Cube
+[submodule "lib/FreeRTOS-Kernel"]
+	path = lib/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel
