@@ -10,6 +10,8 @@ DEFINES := \
   STM32F051x8 \
   HSE_VALUE=8000000 \
 
+SRC_FILES := \
+
 SRC_DIRS := \
   lib/FreeRTOS-Kernel \
   lib/FreeRTOS-Kernel/portable/GCC/ARM_CM0 \
@@ -30,8 +32,8 @@ INC_DIRS := \
   lib/stm32cube/HAL/STM32F0xx/inc \
   lib/tiny/include \
 
+include makefile-worker.mk
+
 .PHONY: watch
 watch:
 	rerun "$(MAKE) --no-print-directory -f $(firstword $(MAKEFILE_LIST))"
-
-include makefile-worker.mk

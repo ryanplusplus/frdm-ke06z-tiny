@@ -1,8 +1,5 @@
 # stm32f051-freertos
-Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) and [FreeRTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel) with STM32F051C8T6.
-
-## Hardware
-https://stm32-base.org/boards/STM32F051C8T6-LC-Technology
+Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) and [FreeRTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel) with [STM32F051C8T6](https://stm32-base.org/boards/STM32F051C8T6-LC-Technology).
 
 ## Setup
 - Install `gcc-arm-none-eabi`

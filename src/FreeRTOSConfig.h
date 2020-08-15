@@ -67,6 +67,10 @@ extern uint32_t SystemCoreClock;
 #define configUSE_COUNTING_SEMAPHORES 1
 #define configGENERATE_RUN_TIME_STATS 0
 
+/* Static vs. dynamic */
+#define configSUPPORT_DYNAMIC_ALLOCATION 0
+#define configSUPPORT_STATIC_ALLOCATION 1
+
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 0
 #define configMAX_CO_ROUTINE_PRIORITIES (2)
