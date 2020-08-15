@@ -5,95 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "blue-f030",
+      "name": "target",
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/blue-f030/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32f0x0.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/blue-f030/openocd.cfg"
-      ],
-      "preLaunchTask": "blue-f030-debug-deps"
-    },
-    {
-      "name": "blue-f051",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/blue-f051/tiny.elf",
+      "executable": "${workspaceFolder}/build/tiny.elf",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
       "svdFile": "${workspaceFolder}/svd/stm32f0x1.svd",
       "configFiles": [
-        "${workspaceRoot}/build/blue-f051/openocd.cfg"
+        "${workspaceRoot}/build/openocd.cfg"
       ],
-      "preLaunchTask": "blue-f051-debug-deps"
-    },
-    {
-      "name": "blue-pill",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/blue-pill/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32f103.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/blue-pill/openocd.cfg"
-      ],
-      "preLaunchTask": "blue-pill-debug-deps"
-    },
-    {
-      "name": "nucleo-g031k8",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/nucleo-g031k8/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32g031.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/nucleo-g031k8/openocd.cfg"
-      ],
-      "preLaunchTask": "nucleo-g031k8-debug-deps"
-    },
-    {
-      "name": "nucleo-g070rb",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/nucleo-g070rb/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32g07x.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/nucleo-g070rb/openocd.cfg"
-      ],
-      "preLaunchTask": "nucleo-g070rb-debug-deps"
-    },
-    {
-      "name": "stm32f3-discovery",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/stm32f3-discovery/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32f303.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/stm32f3-discovery/openocd.cfg"
-      ],
-      "preLaunchTask": "stm32f3-discovery-debug-deps"
-    },
-    {
-      "name": "stm32vl-discovery",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/stm32vl-discovery/tiny.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32f100.svd",
-      "configFiles": [
-        "${workspaceRoot}/build/stm32vl-discovery/openocd.cfg"
-      ],
-      "preLaunchTask": "stm32vl-discovery-debug-deps"
+      "preLaunchTask": "target-debug-deps"
     }
   ]
 }

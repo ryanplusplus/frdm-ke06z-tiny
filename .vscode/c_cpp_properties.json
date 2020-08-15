@@ -1,40 +1,22 @@
 {
   "configurations": [
     {
-      "name": "blue-f030",
-      "defines": [
-        "STM32F030x6",
-        "HSE_VALUE=8000000"
-      ],
-      "includePath": [
-        "${workspaceFolder}/lib/stm32cube/CMSIS/ARM/inc",
-        "${workspaceFolder}/lib/stm32cube/CMSIS/STM32F0xx/inc",
-        "${workspaceFolder}/lib/stm32cube/HAL/STM32F0xx/inc",
-        "${workspaceFolder}/lib/tiny/include",
-        "${workspaceFolder}/lib/tiny/src",
-        "${workspaceFolder}/src/app/blue-f030",
-        "${workspaceFolder}/src/peripheral/cmsis",
-        "${workspaceFolder}/src/peripheral/stm32xxxx"
-      ],
-      "intelliSenseMode": "gcc-arm",
-      "cStandard": "c11",
-      "cppStandard": "c++17"
-    },
-    {
-      "name": "blue-f051",
+      "name": "default",
       "defines": [
         "STM32F051x8",
         "HSE_VALUE=8000000"
       ],
       "includePath": [
+        "${workspaceFolder}/lib/FreeRTOS-Kernel/include",
+        "${workspaceFolder}/lib/FreeRTOS-Kernel/portable/GCC/ARM_CM0",
         "${workspaceFolder}/lib/stm32cube/CMSIS/ARM/inc",
         "${workspaceFolder}/lib/stm32cube/CMSIS/STM32F0xx/inc",
         "${workspaceFolder}/lib/stm32cube/HAL/STM32F0xx/inc",
         "${workspaceFolder}/lib/tiny/include",
         "${workspaceFolder}/lib/tiny/src",
-        "${workspaceFolder}/src/app/blue-f051",
-        "${workspaceFolder}/src/peripheral/cmsis",
-        "${workspaceFolder}/src/peripheral/stm32xxxx"
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/src/app",
+        "${workspaceFolder}/src/hardware"
       ],
       "intelliSenseMode": "gcc-arm",
       "cStandard": "c11",

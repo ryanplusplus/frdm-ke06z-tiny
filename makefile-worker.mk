@@ -1,13 +1,13 @@
 SRCS := $(SRC_FILES)
 
 ifneq ($(SRC_DIRS),)
-SRCS += $(shell find $(SRC_DIRS) -name *.c -or -name *.s -or -name *.S)
+SRCS += $(shell find $(SRC_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
 endif
 
 LIB_SRCS := $(LIB_FILES)
 
 ifneq ($(LIB_DIRS),)
-LIB_SRCS += $(shell find $(LIB_DIRS) -name *.c -or -name *.s -or -name *.S)
+LIB_SRCS += $(shell find $(LIB_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
 endif
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -15,9 +15,9 @@ DEPS := $(SRCS:%=$(BUILD_DIR)/%.d)
 LIB_OBJS := $(LIB_SRCS:%=$(BUILD_DIR)/%.o)
 LIB_DEPS := $(LIB_SRCS:%=$(BUILD_DIR)/%.d)
 
-INC_DIRS += $(shell find $(SRC_DIRS) -type d)
+INC_DIRS += $(shell find $(SRC_DIRS) -maxdepth 1 -type d)
 ifneq ($(LIB_DIRS),)
-INC_DIRS += $(shell find $(LIB_DIRS) -type d)
+INC_DIRS += $(shell find $(LIB_DIRS) -maxdepth 1 -type d)
 endif
 
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))

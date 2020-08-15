@@ -4,87 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "blue-f030-debug-deps",
+      "label": "target-debug-deps",
       "type": "shell",
-      "command": "make -f blue-f030.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "blue-f051-debug-deps",
-      "type": "shell",
-      "command": "make -f blue-f051.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "blue-pill-debug-deps",
-      "type": "shell",
-      "command": "make -f blue-pill.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "nucleo-g031k8-debug-deps",
-      "type": "shell",
-      "command": "make -f nucleo-g031k8.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "nucleo-g070rb-debug-deps",
-      "type": "shell",
-      "command": "make -f nucleo-g070rb.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "stm32f3-discovery-debug-deps",
-      "type": "shell",
-      "command": "make -f stm32f3-discovery.mk debug-deps",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      }
-    },
-    {
-      "label": "stm32vl-discovery-debug-deps",
-      "type": "shell",
-      "command": "make -f stm32vl-discovery.mk debug-deps",
+      "command": "make -f target.mk debug-deps",
       "presentation": {
         "echo": true,
         "reveal": "silent",
