@@ -5,7 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "target",
+      "name": "target (jlink)",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceFolder}/build/tiny.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "jlink",
+      "svdFile": "${workspaceFolder}/svd/stm32f0x1.svd",
+      "device": "stm32f051c8",
+      "preLaunchTask": "target-debug-deps"
+    },
+    {
+      "name": "target (openocd)",
       "cwd": "${workspaceRoot}",
       "executable": "${workspaceFolder}/build/tiny.elf",
       "request": "launch",
