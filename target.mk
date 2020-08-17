@@ -39,6 +39,24 @@ INC_DIRS := \
   lib/stm32cube/HAL/STM32F0xx/inc \
   lib/tiny/include \
 
+ifeq ($(USE_SYSTEM_VIEW),Y)
+LIB_FILES += \
+  lib/SystemView/Sample/NoOS/Config/Cortex-M0/SEGGER_SYSVIEW_Config_NoOS_CM0.c \
+  lib/SystemView/SEGGER/SEGGER_RTT.c \
+  lib/SystemView/SEGGER/SEGGER_SYSVIEW.c \
+
+LIB_DIRS += \
+  lib/SystemView/Sample/FreeRTOSV10 \
+
+INC_DIRS += \
+  $(FREERTOS)/include \
+  lib/stm32cube/CMSIS/ARM/inc \
+  lib/stm32cube/CMSIS/STM32F0xx/inc \
+  lib/stm32cube/HAL/STM32F0xx/inc \
+  lib/SystemView/SEGGER \
+
+endif
+
 IGNORE := $(shell $(MAKE) --no-print-directory -f patch.mk)
 
 include makefile-worker.mk

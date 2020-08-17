@@ -11,6 +11,7 @@
 #include "stm32f0xx_ll_bus.h"
 #include "stm32f0xx_ll_gpio.h"
 #include "tiny_utils.h"
+#include "SEGGER_SYSVIEW.h"
 
 static StaticTask_t on_task;
 static StackType_t on_task_stack[512 / sizeof(StackType_t)];
@@ -65,6 +66,9 @@ void main(void) {
       &off_task);
   }
   __enable_irq();
+
+  SEGGER_SYSVIEW_Conf();
+  SEGGER_SYSVIEW_Start();
 
   vTaskStartScheduler();
 }
