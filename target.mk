@@ -40,6 +40,9 @@ INC_DIRS := \
   lib/tiny/include \
 
 ifeq ($(USE_SYSTEM_VIEW),Y)
+DEFINES += \
+  USE_SYSTEM_VIEW \
+
 LIB_FILES += \
   lib/SystemView/Sample/NoOS/Config/Cortex-M0/SEGGER_SYSVIEW_Config_NoOS_CM0.c \
   lib/SystemView/SEGGER/SEGGER_RTT.c \
