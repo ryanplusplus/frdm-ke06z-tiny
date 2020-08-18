@@ -1,6 +1,6 @@
 diff -Naur lib/patched/FreeRTOS-Kernel/include/FreeRTOS.h patched/FreeRTOS-Kernel/include/FreeRTOS.h
---- lib/patched/FreeRTOS-Kernel/include/FreeRTOS.h	2020-08-17 16:19:45.582884864 -0400
-+++ patched/FreeRTOS-Kernel/include/FreeRTOS.h	2020-08-17 16:17:26.821218168 -0400
+--- lib/patched/FreeRTOS-Kernel/include/FreeRTOS.h	2020-08-17 20:01:37.739392675 -0400
++++ patched/FreeRTOS-Kernel/include/FreeRTOS.h	2020-08-17 19:52:45.367983000 -0400
 @@ -161,6 +161,10 @@
          #define INCLUDE_uxTaskGetStackHighWaterMark2    0
      #endif
@@ -55,8 +55,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/include/FreeRTOS.h patched/FreeRTOS-Kerne
          #define traceSTREAM_BUFFER_CREATE_FAILED( xIsMessageBuffer )
      #endif
 diff -Naur lib/patched/FreeRTOS-Kernel/include/task.h patched/FreeRTOS-Kernel/include/task.h
---- lib/patched/FreeRTOS-Kernel/include/task.h	2020-08-17 16:19:45.606884537 -0400
-+++ patched/FreeRTOS-Kernel/include/task.h	2020-08-17 16:17:26.861217354 -0400
+--- lib/patched/FreeRTOS-Kernel/include/task.h	2020-08-17 20:01:37.747392078 -0400
++++ patched/FreeRTOS-Kernel/include/task.h	2020-08-17 19:52:45.367983000 -0400
 @@ -1459,6 +1459,25 @@
  
  /**
@@ -84,8 +84,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/include/task.h patched/FreeRTOS-Kernel/in
   *
   * INCLUDE_uxTaskGetStackHighWaterMark2 must be set to 1 in FreeRTOSConfig.h for
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c	2020-08-17 16:19:45.730882850 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c	2020-08-17 16:17:27.037213773 -0400
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c	2020-08-17 20:01:37.815387001 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c	2020-08-17 19:52:45.367983000 -0400
 @@ -355,18 +355,28 @@
  }
  /*-----------------------------------------------------------*/
@@ -116,8 +116,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c patched/FreeR
      portCLEAR_INTERRUPT_MASK_FROM_ISR( ulPreviousMask );
  }
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h	2020-08-17 16:19:45.730882850 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h	2020-08-17 16:17:27.037213773 -0400
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h	2020-08-17 20:01:37.819386702 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h	2020-08-17 19:52:45.367983000 -0400
 @@ -82,7 +82,7 @@
      #define portNVIC_INT_CTRL_REG     ( *( ( volatile uint32_t * ) 0xe000ed04 ) )
      #define portNVIC_PENDSVSET_BIT    ( 1UL << 28UL )
@@ -128,9 +128,20 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h patched/
  /*-----------------------------------------------------------*/
  
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c	2020-08-17 16:19:45.746882632 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c	2020-08-17 16:17:27.053213449 -0400
-@@ -437,14 +437,20 @@
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c	2020-08-17 20:01:37.827386105 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c	2020-08-17 19:53:49.013039000 -0400
+@@ -430,21 +430,31 @@
+ }
+ /*-----------------------------------------------------------*/
+ 
++unsigned int SEGGER_SYSVIEW_TickCnt;
++
+ void xPortSysTickHandler( void )
+ {
++    SEGGER_SYSVIEW_TickCnt += 1;
++
+     /* The SysTick runs at the lowest interrupt priority, so when this interrupt
+      * executes all interrupts must be unmasked.  There is therefore no need to
       * save and then restore the interrupt mask value as its value is already
       * known. */
      portDISABLE_INTERRUPTS();
@@ -152,8 +163,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.c patched/FreeR
      portENABLE_INTERRUPTS();
  }
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h	2020-08-17 16:19:45.746882632 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h	2020-08-17 16:17:27.053213449 -0400
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h	2020-08-17 20:01:37.827386105 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h	2020-08-17 19:52:45.367983000 -0400
 @@ -90,7 +90,7 @@
  
      #define portNVIC_INT_CTRL_REG     ( *( ( volatile uint32_t * ) 0xe000ed04 ) )
@@ -164,9 +175,20 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM3/portmacro.h patched/
  /*-----------------------------------------------------------*/
  
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c	2020-08-17 16:19:45.766882361 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c	2020-08-17 16:17:27.069213124 -0400
-@@ -499,14 +499,20 @@
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c	2020-08-17 20:01:37.843384911 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c	2020-08-17 19:53:48.177135000 -0400
+@@ -492,21 +492,31 @@
+ }
+ /*-----------------------------------------------------------*/
+ 
++unsigned int SEGGER_SYSVIEW_TickCnt;
++
+ void xPortSysTickHandler( void )
+ {
++    SEGGER_SYSVIEW_TickCnt += 1;
++
+     /* The SysTick runs at the lowest interrupt priority, so when this interrupt
+      * executes all interrupts must be unmasked.  There is therefore no need to
       * save and then restore the interrupt mask value as its value is already
       * known. */
      portDISABLE_INTERRUPTS();
@@ -188,8 +210,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c patched/Free
      portENABLE_INTERRUPTS();
  }
 diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h
---- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h	2020-08-17 16:19:45.766882361 -0400
-+++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h	2020-08-17 16:17:27.069213124 -0400
+--- lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h	2020-08-17 20:01:37.843384911 -0400
++++ patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h	2020-08-17 19:52:45.371983000 -0400
 @@ -90,7 +90,7 @@
  
      #define portNVIC_INT_CTRL_REG     ( *( ( volatile uint32_t * ) 0xe000ed04 ) )
@@ -200,8 +222,8 @@ diff -Naur lib/patched/FreeRTOS-Kernel/portable/GCC/ARM_CM4F/portmacro.h patched
  /*-----------------------------------------------------------*/
  
 diff -Naur lib/patched/FreeRTOS-Kernel/tasks.c patched/FreeRTOS-Kernel/tasks.c
---- lib/patched/FreeRTOS-Kernel/tasks.c	2020-08-17 16:19:46.150877145 -0400
-+++ patched/FreeRTOS-Kernel/tasks.c	2020-08-17 16:17:27.401206383 -0400
+--- lib/patched/FreeRTOS-Kernel/tasks.c	2020-08-17 20:01:38.179359928 -0400
++++ patched/FreeRTOS-Kernel/tasks.c	2020-08-17 19:52:45.371983000 -0400
 @@ -222,6 +222,18 @@
      taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority );                                                \
      vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); \
