@@ -62,6 +62,8 @@ endif
 
 IGNORE := $(shell $(MAKE) --no-print-directory -f patch.mk)
 
+BUILD_DEPS += patch.mk
+
 include makefile-worker.mk
 
 .PHONY: watch

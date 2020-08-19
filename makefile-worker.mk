@@ -1,3 +1,5 @@
+BUILD_DEPS += $(MAKEFILE_LIST)
+
 SRCS := $(SRC_FILES)
 
 ifneq ($(SRC_DIRS),)
@@ -78,12 +80,12 @@ $(BUILD_DIR)/$(TARGET).lib: $(LIB_OBJS)
 	@$(MKDIR_P) $(dir $@)
 	@$(AR) rcs $@ $^
 
-$(BUILD_DIR)/%.s.o: %.s
+$(BUILD_DIR)/%.s.o: %.s $(BUILD_DEPS)
 	@echo Assembling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
 	@$(AS) -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< $(INC_FLAGS) -o $@
 
-$(BUILD_DIR)/%.c.o: %.c
+$(BUILD_DIR)/%.c.o: %.c $(BUILD_DEPS)
 	@echo Compiling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
 	@$(CC) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CFLAGS) -E $<

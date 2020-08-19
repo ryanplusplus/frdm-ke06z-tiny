@@ -49,24 +49,6 @@ void main(void) {
   __disable_irq();
   {
     clock_init();
-
-    xTaskCreateStatic(
-      on_task_function,
-      "on_task",
-      element_count(on_task_stack),
-      NULL,
-      1,
-      on_task_stack,
-      &on_task);
-
-    xTaskCreateStatic(
-      off_task_function,
-      "off_task",
-      element_count(off_task_stack),
-      NULL,
-      1,
-      off_task_stack,
-      &off_task);
   }
   __enable_irq();
 
@@ -74,6 +56,24 @@ void main(void) {
   SEGGER_SYSVIEW_Conf();
   SEGGER_SYSVIEW_Start();
 #endif
+
+  xTaskCreateStatic(
+    on_task_function,
+    "on_task",
+    element_count(on_task_stack),
+    NULL,
+    1,
+    on_task_stack,
+    &on_task);
+
+  xTaskCreateStatic(
+    off_task_function,
+    "off_task",
+    element_count(off_task_stack),
+    NULL,
+    1,
+    off_task_stack,
+    &off_task);
 
   vTaskStartScheduler();
 }
