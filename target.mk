@@ -23,7 +23,6 @@ SRC_DIRS := \
   $(FREERTOS) \
   $(FREERTOS)/portable/GCC/ARM_CM0 \
   src \
-  src/app \
   src/hardware \
 
 LIB_FILES := \
