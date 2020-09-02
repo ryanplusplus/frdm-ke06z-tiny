@@ -22,25 +22,32 @@ ifneq ($(LIB_DIRS),)
 INC_DIRS += $(shell find $(LIB_DIRS) -maxdepth 1 -type d)
 endif
 
-INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+INC_FLAGS := $(addprefix -iquote,$(INC_DIRS))
 DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
 
-CFLAGS += \
+CPPFLAGS += \
   $(INC_FLAGS) \
   $(DEFINE_FLAGS) \
-  -fno-exceptions \
   -fdata-sections \
   -ffunction-sections \
   -nostdlib \
   -Wextra \
   -Werror \
   -Wfatal-errors \
-	-Wno-implicit-fallthrough \
+  -Wno-implicit-fallthrough \
+  -Wno-expansion-to-defined \
 
-LDFLAGS += \
-  $(CFLAGS) \
+CFLAGS += \
+
+CXXFLAGS += \
+  -fno-rtti \
+  -fno-exceptions \
+  -fno-non-call-exceptions \
+  -fno-use-cxa-atexit \
+	-Weffc++
 
 CC      := arm-none-eabi-gcc
+CXX     := arm-none-eabi-g++
 AS      := arm-none-eabi-as
 LD      := arm-none-eabi-gcc
 AR      := arm-none-eabi-ar
@@ -83,13 +90,24 @@ $(BUILD_DIR)/$(TARGET).lib: $(LIB_OBJS)
 $(BUILD_DIR)/%.s.o: %.s $(BUILD_DEPS)
 	@echo Assembling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(AS) -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< $(INC_FLAGS) -o $@
+	@$(AS) -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< -o $@
+
+$(BUILD_DIR)/%.S.o: %.S $(BUILD_DEPS)
+	@echo Assembling $(notdir $@)...
+	@$(MKDIR_P) $(dir $@)
+	@$(CC) -c -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< $(CPPFLAGS) -o $@
 
 $(BUILD_DIR)/%.c.o: %.c $(BUILD_DEPS)
 	@echo Compiling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(CC) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CFLAGS) -E $<
-	@$(CC) --specs=nano.specs -x c -g -g2 -Os $(CFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c99 -c $< -o $@
+	@$(CC) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CFLAGS) -E $<
+	@$(CC) --specs=nano.specs -x c -g -g2 -Os $(CPPFLAGS) $(CFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c99 -c $< -o $@
+
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	@echo Compiling $(notdir $@)...
+	@$(MKDIR_P) $(dir $@)
+	@$(CXX) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CXXFLAGS) -E $<
+	@$(CXX) --specs=nano.specs -x c++ -g -g2 -Os $(CPPFLAGS) $(CXXFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c++17 -c $< -o $@
 
 .PHONY: clean
 clean:

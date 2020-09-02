@@ -3,17 +3,9 @@
     {
       "name": "default",
       "defines": [
-        "STM32F051x8",
-        "HSE_VALUE=8000000"
+        "CPU_MKE06Z128VLK4"
       ],
       "includePath": [
-        "${workspaceFolder}/lib/FreeRTOS-Kernel/include",
-        "${workspaceFolder}/lib/FreeRTOS-Kernel/portable/GCC/ARM_CM0",
-        "${workspaceFolder}/lib/stm32cube/CMSIS/ARM/inc",
-        "${workspaceFolder}/lib/stm32cube/CMSIS/STM32F0xx/inc",
-        "${workspaceFolder}/lib/stm32cube/HAL/STM32F0xx/inc",
-        "${workspaceFolder}/lib/tiny/include",
-        "${workspaceFolder}/lib/tiny/src",
         "${workspaceFolder}/src",
         "${workspaceFolder}/src/app",
         "${workspaceFolder}/src/hardware"

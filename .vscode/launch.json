@@ -11,8 +11,8 @@
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "jlink",
-      "svdFile": "${workspaceFolder}/svd/stm32f0x1.svd",
-      "device": "stm32f051c8",
+      "svdFile": "${workspaceFolder}/svd/mke06z4.svd",
+      "device": "MKE06Z128VLK4",
       "preLaunchTask": "target-debug-deps"
     },
     {
@@ -22,7 +22,7 @@
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/stm32f0x1.svd",
+      "svdFile": "${workspaceFolder}/svd/mke06z4.svd",
       "configFiles": [
         "${workspaceRoot}/build/openocd.cfg"
       ],
