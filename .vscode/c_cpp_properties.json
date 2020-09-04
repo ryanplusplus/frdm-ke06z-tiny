@@ -1,11 +1,15 @@
 {
   "configurations": [
     {
-      "name": "default",
+      "name": "FRDM-KE06Z",
       "defines": [
         "CPU_MKE06Z128VLK4"
       ],
       "includePath": [
+        "${workspaceFolder}/lib/CMSIS/Include",
+        "${workspaceFolder}/lib/nxp/MKE06Z4",
+        "${workspaceFolder}/lib/tiny/include",
+        "${workspaceFolder}/lib/tiny/include/hal",
         "${workspaceFolder}/src",
         "${workspaceFolder}/src/app",
         "${workspaceFolder}/src/hardware"
