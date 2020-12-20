@@ -36,6 +36,7 @@ CPPFLAGS += \
   -Wfatal-errors \
   -Wno-implicit-fallthrough \
   -Wno-expansion-to-defined \
+  -Wno-old-style-declaration \
 
 CFLAGS += \
 

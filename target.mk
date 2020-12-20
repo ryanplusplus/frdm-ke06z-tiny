@@ -10,6 +10,7 @@ DEFINES := \
   CPU_MKE06Z128VLK4 \
   __NO_SYSTEM_INIT \
   __STARTUP_CLEAR_BSS \
+  NDEBUG \
 
 SRC_FILES := \
 
@@ -22,6 +23,7 @@ LIB_FILES := \
 
 LIB_DIRS := \
   lib/tiny/src \
+  lib/nxp/MKE06Z4/drivers/ \
 
 INC_DIRS := \
   lib/CMSIS/Include \

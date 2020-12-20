@@ -4,19 +4,43 @@
  */
 
 #include "watchdog.h"
-// #include "stm32f0xx.h"
-#include "MKE06Z4.h"
+#include "fsl_wdog8.h"
 
-void watchdog_init(void)
+enum {
+  kick_period = 100
+};
+
+static tiny_timer_t timer;
+
+static void kick_watchdog(tiny_timer_group_t* group, void* context)
 {
-  WDOG->CNT = WDOG_UPDATE_KEY1;
-  WDOG->CNT = WDOG_UPDATE_KEY2;
-  WDOG->TOVAL = 0xFFFFU;
-  WDOG->CS1 = (uint8_t)((WDOG->CS1) & ~WDOG_CS1_EN_MASK) | WDOG_CS1_UPDATE_MASK;
-  WDOG->CS2 |= 0;
+  (void)group;
+  (void)context;
+  WDOG8_Refresh(WDOG);
 }
 
-void watchdog_kick(void)
+void watchdog_init(tiny_timer_group_t* timer_group)
 {
-  // WDT disabled for now
+  wdog8_config_t config = {
+    .enableWdog8 = true,
+    .clockSource = kWDOG8_ClockSource1,
+    .prescaler = kWDOG8_ClockPrescalerDivide1,
+    .workMode.enableWait = true,
+    .workMode.enableStop = false,
+    .workMode.enableDebug = false,
+    .testMode = kWDOG8_TestModeDisabled,
+    .enableUpdate = true,
+    .enableInterrupt = false,
+    .enableWindowMode = false,
+    .windowValue = 0U,
+    .timeoutValue = 0xFFU,
+  };
+  WDOG8_Init(WDOG, &config);
+
+  tiny_timer_start_periodic(
+    timer_group,
+    &timer,
+    kick_period,
+    kick_watchdog,
+    NULL);
 }
