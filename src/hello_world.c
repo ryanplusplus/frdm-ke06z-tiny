@@ -14,6 +14,7 @@ static uint8_t offset;
 static void send_next_byte(void* context, const void* args)
 {
   reinterpret(uart, context, i_tiny_uart_t*);
+  (void)args;
 
   if(offset < sizeof(message)) {
     tiny_uart_send(uart, message[offset++]);

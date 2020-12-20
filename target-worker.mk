@@ -31,9 +31,11 @@ CPPFLAGS += \
   -fdata-sections \
   -ffunction-sections \
   -nostdlib \
+  -Wall \
   -Wextra \
   -Werror \
   -Wfatal-errors \
+  -Wno-unused-parameter \
   -Wno-implicit-fallthrough \
   -Wno-expansion-to-defined \
   -Wno-old-style-declaration \

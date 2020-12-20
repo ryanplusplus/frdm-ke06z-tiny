@@ -30,17 +30,20 @@ void UART1_IRQHandler(void)
 
 static void send(i_tiny_uart_t* self, uint8_t byte)
 {
+  (void)self;
   UART_WriteByte(UART, byte);
   UART_EnableInterrupts(UART, kUART_TxDataRegEmptyInterruptEnable);
 }
 
 static i_tiny_event_t* on_send_complete(i_tiny_uart_t* self)
 {
+  (void)self;
   return &send_complete.interface;
 }
 
 static i_tiny_event_t* on_receive(i_tiny_uart_t* self)
 {
+  (void)self;
   return &receive.interface;
 }
 

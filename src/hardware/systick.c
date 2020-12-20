@@ -6,32 +6,23 @@
 #include "MKE06Z4.h"
 #include "systick.h"
 
-static struct {
-  i_tiny_time_source_t interface;
-  volatile tiny_time_source_ticks_t ticks;
-} self;
+static i_tiny_time_source_t interface;
+static volatile tiny_time_source_ticks_t ticks;
 
 void SysTick_Handler(void)
 {
-  self.ticks++;
+  ticks++;
 }
 
-static tiny_time_source_ticks_t ticks(i_tiny_time_source_t* _self)
+static tiny_time_source_ticks_t _ticks(i_tiny_time_source_t* _self)
 {
   (void)_self;
 
-  tiny_time_source_ticks_t ticks1;
-  tiny_time_source_ticks_t ticks2;
-
-  do {
-    ticks1 = self.ticks;
-    ticks2 = self.ticks;
-  } while(ticks1 != ticks2);
-
-  return ticks1;
+  // ticks has less than integer size so is atomic
+  return ticks;
 }
 
-static const i_tiny_time_source_api_t api = { ticks };
+static const i_tiny_time_source_api_t api = { _ticks };
 
 i_tiny_time_source_t* systick_init(void)
 {
@@ -41,7 +32,7 @@ i_tiny_time_source_t* systick_init(void)
 
   NVIC_SetPriority(SysTick_IRQn, 7);
 
-  self.interface.api = &api;
+  interface.api = &api;
 
-  return &self.interface;
+  return &interface;
 }

@@ -11,13 +11,14 @@
 #define pin 21
 
 enum {
-  half_period_in_msec = 500,
+  half_period_in_msec = 500
 };
 
 static tiny_timer_t timer;
 
 static void blink(tiny_timer_group_t* group, void* context)
 {
+  (void)group;
   (void)context;
   port->PTOR = (1 << pin);
 }
