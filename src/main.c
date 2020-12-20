@@ -18,9 +18,10 @@ void main(void)
 {
   interrupts_disable();
   {
+    watchdog_init();
     clock_init();
     tiny_timer_group_init(&timer_group, systick_init());
-    watchdog_init(&timer_group);
+    watchdog_enable_kicker(&timer_group);
     heartbeat_init(&timer_group);
     hello_world_init(uart_init());
   }

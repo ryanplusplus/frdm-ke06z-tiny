@@ -8,6 +8,7 @@
 
 #include "tiny_timer.h"
 
-void watchdog_init(tiny_timer_group_t* timer_group);
+void watchdog_init(void);
+void watchdog_enable_kicker(tiny_timer_group_t* timer_group);
 
 #endif
