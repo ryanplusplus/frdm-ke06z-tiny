@@ -1,14 +1,20 @@
 {
+  "env": {
+    "sdk": "SDK_2.8.0_FRDM-KE06Z"
+  },
   "configurations": [
     {
       "name": "FRDM-KE06Z",
       "defines": [
-        "CPU_MKE06Z128VLK4"
+        "CPU_MKE06Z128VLK4",
+        "__NO_SYSTEM_INIT",
+        "__STARTUP_CLEAR_BSS",
+        "NDEBUG"
       ],
       "includePath": [
-        "${workspaceFolder}/lib/CMSIS/Include",
-        "${workspaceFolder}/lib/nxp/MKE06Z4",
-        "${workspaceFolder}/lib/nxp/MKE06Z4/drivers",
+        "${workspaceFolder}/lib/nxp/${sdk}/CMSIS/Include",
+        "${workspaceFolder}/lib/nxp/${sdk}/devices/MKE06Z4",
+        "${workspaceFolder}/lib/nxp/${sdk}/devices/MKE06Z4/drivers",
         "${workspaceFolder}/lib/tiny/include",
         "${workspaceFolder}/lib/tiny/include/hal",
         "${workspaceFolder}/src",

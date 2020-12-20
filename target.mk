@@ -6,6 +6,8 @@ ARCH := armv6-m
 OPENOCD_CFG := openocd
 LINKER_CFG := linker.ld
 
+SDK := SDK_2.8.0_FRDM-KE06Z
+
 DEFINES := \
   CPU_MKE06Z128VLK4 \
   __NO_SYSTEM_INIT \
@@ -15,7 +17,7 @@ DEFINES := \
 SRC_FILES := \
 
 SRC_DIRS := \
-  lib/nxp/MKE06Z4 \
+  lib/nxp/$(SDK)/devices/MKE06Z4 \
   src \
   src/hardware \
 
@@ -23,10 +25,10 @@ LIB_FILES := \
 
 LIB_DIRS := \
   lib/tiny/src \
-  lib/nxp/MKE06Z4/drivers/ \
+  lib/nxp/$(SDK)/devices/MKE06Z4/drivers/ \
 
 INC_DIRS := \
-  lib/CMSIS/Include \
+  lib/nxp/$(SDK)/CMSIS/Include \
   lib/tiny/include \
   lib/tiny/include/hal \
 
