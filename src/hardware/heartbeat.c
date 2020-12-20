@@ -4,8 +4,7 @@
  */
 
 #include <stddef.h>
-#include <stdbool.h>
-#include "MKE06Z4.h"
+#include "fsl_gpio.h"
 #include "heartbeat.h"
 
 #define port GPIOB
@@ -15,23 +14,12 @@ enum {
   half_period_in_msec = 500,
 };
 
-static struct {
-  tiny_timer_t timer;
-  bool state;
-} self;
+static tiny_timer_t timer;
 
 static void blink(tiny_timer_group_t* group, void* context)
 {
   (void)context;
-
-  if(self.state) {
-    port->PCOR = (1 << pin);
-  }
-  else {
-    port->PSOR = (1 << pin);
-  }
-
-  self.state = !self.state;
+  port->PTOR = (1 << pin);
 }
 
 void heartbeat_init(tiny_timer_group_t* timer_group)
@@ -39,5 +27,5 @@ void heartbeat_init(tiny_timer_group_t* timer_group)
   port->PDDR |= (1 << pin);
   port->PIDR |= (1 << pin);
 
-  tiny_timer_start_periodic(timer_group, &self.timer, half_period_in_msec, blink, NULL);
+  tiny_timer_start_periodic(timer_group, &timer, half_period_in_msec, blink, NULL);
 }
