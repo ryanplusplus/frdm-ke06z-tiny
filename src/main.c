@@ -9,6 +9,8 @@
 #include "systick.h"
 #include "tiny_timer.h"
 #include "heartbeat.h"
+#include "uart.h"
+#include "hello_world.h"
 
 static tiny_timer_group_t timer_group;
 
@@ -20,6 +22,7 @@ void main(void)
     tiny_timer_group_init(&timer_group, systick_init());
     watchdog_init(&timer_group);
     heartbeat_init(&timer_group);
+    hello_world_init(uart_init());
   }
   interrupts_enable();
 

@@ -11,7 +11,7 @@
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "jlink",
-      "svdFile": "${workspaceFolder}/svd/mke06z4.svd",
+      "svdFile": "${workspaceFolder}/build/tiny.svd",
       "device": "MKE06Z128VLK4",
       "preLaunchTask": "target-debug-deps"
     },
@@ -22,7 +22,7 @@
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/svd/mke06z4.svd",
+      "svdFile": "${workspaceFolder}/build/tiny.svd",
       "configFiles": [
         "${workspaceRoot}/build/openocd.cfg"
       ],

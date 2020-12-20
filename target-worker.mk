@@ -62,8 +62,11 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
 $(BUILD_DIR)/openocd.cfg:
 	@cp $(OPENOCD_CFG)/debug.cfg $@
 
+$(BUILD_DIR)/$(TARGET).svd: $(SVD)
+	@cp $(SVD) $@
+
 .PHONY: debug-deps
-debug-deps: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/openocd.cfg
+debug-deps: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/openocd.cfg $(BUILD_DIR)/$(TARGET).svd
 
 .PHONY: upload
 upload: $(BUILD_DIR)/$(TARGET).hex
