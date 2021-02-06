@@ -61,8 +61,8 @@ SIZE    := arm-none-eabi-size
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
 	@$(SIZE) $<
 
-$(BUILD_DIR)/openocd.cfg:
-	@cp $(OPENOCD_CFG)/debug.cfg $@
+$(BUILD_DIR)/openocd.cfg: $(OPENOCD_CFG)/debug.cfg
+	@cp @< $@
 
 $(BUILD_DIR)/$(TARGET).svd: $(SVD)
 	@cp $(SVD) $@
@@ -109,7 +109,7 @@ $(BUILD_DIR)/%.c.o: %.c $(BUILD_DEPS)
 	@$(CC) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CFLAGS) -E $<
 	@$(CC) --specs=nano.specs -x c -g -g2 -Os $(CPPFLAGS) $(CFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c99 -c $< -o $@
 
-$(BUILD_DIR)/%.cpp.o: %.cpp
+$(BUILD_DIR)/%.cpp.o: %.cpp $(BUILD_DEPS)
 	@echo Compiling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
 	@$(CXX) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CXXFLAGS) -E $<
