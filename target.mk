@@ -6,7 +6,7 @@ ARCH := armv6-m
 OPENOCD_CFG := openocd
 LINKER_CFG := linker.ld
 
-SDK := SDK_2.8.0_FRDM-KE06Z
+SDK := SDK_2.9.0_FRDM-KE06Z
 SVD := lib/nxp/$(SDK)/devices/MKE06Z4/MKE06Z4.xml
 
 DEFINES := \
