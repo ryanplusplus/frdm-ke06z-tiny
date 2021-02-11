@@ -11,6 +11,8 @@
 
 #define UART UART1
 
+extern uint32_t SystemCoreClock;
+
 static tiny_single_subscriber_event_t send_complete;
 static tiny_single_subscriber_event_t receive;
 static i_tiny_uart_t self;
@@ -55,13 +57,13 @@ static void initialize_peripheral(void)
   PORT_SetPinSelect(kPORT_UART1, kPORT_UART1_RXPTC7_TXPTC6);
 
   uart_config_t config = {
-    .baudRate_Bps = 115200,
+    .baudRate_Bps = 230400,
     .parityMode = kUART_ParityDisabled,
     .stopBitCount = kUART_OneStopBit,
     .enableTx = true,
     .enableRx = true,
   };
-  UART_Init(UART, &config, CLOCK_GetFreq(kCLOCK_BusClk));
+  UART_Init(UART, &config, SystemCoreClock / 2);
 
   UART_EnableInterrupts(UART, kUART_RxDataRegFullInterruptEnable);
   EnableIRQ(UART1_IRQn);

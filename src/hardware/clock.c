@@ -6,7 +6,13 @@
 #include "clock.h"
 #include "fsl_clock.h"
 
-#define BOARD_BOOTCLOCKRUN_CORE_CLOCK 48000000U
+// ICS is trimmed to 34560 Hz
+// Core clock is ICS * 1280 = 34560 * 1280 = 44236800
+#define BOARD_BOOTCLOCKRUN_CORE_CLOCK 44236800U
+
+// Reserved flash registers for trim settings
+#define SCTRIM (*(volatile uint8_t*)0x3FF)
+#define SCFTRIM (*(volatile uint8_t*)0x3FE)
 
 extern uint32_t SystemCoreClock;
 
@@ -24,8 +30,18 @@ static const sim_clock_config_t simConfig_BOARD_BootClockRUN = {
   .busClkPrescaler = 0x0U, /* bus clock optional prescaler */
 };
 
+static inline void set_trim(void)
+{
+  // Copy trim values from reserved flash registers
+  // These are set in MCUXpresso using PE Micro SDA firmware to trim the ICS to 34560 Hz
+  ICS->C3 = SCTRIM;
+  ICS->C4 |= SCFTRIM & 0x01;
+}
+
 void clock_init(void)
 {
+  set_trim();
+
   /* Set the system clock dividers in SIM to safe value. */
   CLOCK_SetSimSafeDivs();
   /* Set ICS to FEI mode. */

@@ -15,6 +15,12 @@ DEFINES := \
   __STARTUP_CLEAR_BSS \
   NDEBUG \
 
+CPPFLAGS := \
+  -Wno-unused-parameter \
+  -Wno-implicit-fallthrough \
+  -Wno-expansion-to-defined \
+  -Wno-old-style-declaration \
+
 SRC_FILES := \
 
 SRC_DIRS := \
@@ -25,8 +31,8 @@ SRC_DIRS := \
 LIB_FILES := \
 
 LIB_DIRS := \
-  lib/tiny/src \
   lib/nxp/$(SDK)/devices/MKE06Z4/drivers/ \
+  lib/tiny/src \
 
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \

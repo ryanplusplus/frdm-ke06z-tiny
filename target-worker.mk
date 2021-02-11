@@ -1,4 +1,5 @@
 BUILD_DEPS += $(MAKEFILE_LIST)
+BUILD_DEPS := $(BUILD_DEPS)
 
 SRCS := $(SRC_FILES)
 
@@ -25,29 +26,59 @@ endif
 INC_FLAGS := $(addprefix -iquote,$(INC_DIRS))
 DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
 
-CPPFLAGS += \
+ARCH_FLAGS := \
+
+CPPFLAGS := \
+  --specs=nano.specs \
+  -mcpu=$(CPU) \
+  -march=$(ARCH) \
+  -mthumb \
+  -g \
+  -g2 \
+  -Os \
   $(INC_FLAGS) \
   $(DEFINE_FLAGS) \
   -fdata-sections \
   -ffunction-sections \
-  -nostdlib \
   -Wall \
   -Wextra \
   -Werror \
   -Wfatal-errors \
-  -Wno-unused-parameter \
-  -Wno-implicit-fallthrough \
-  -Wno-expansion-to-defined \
-  -Wno-old-style-declaration \
+  $(CPPFLAGS) \
 
-CFLAGS += \
+ASFLAGS := \
+  -mcpu=$(CPU) \
+  -march=$(ARCH) \
+  -mthumb \
+  -g2 \
+  $(ASFLAGS) \
 
-CXXFLAGS += \
+CFLAGS := \
+  -std=c99 \
+  $(CFLAGS) \
+
+CXXFLAGS := \
   -fno-rtti \
   -fno-exceptions \
   -fno-non-call-exceptions \
   -fno-use-cxa-atexit \
-	-Weffc++
+  -Weffc++ \
+  -std=c++17 \
+  $(CXXFLAGS) \
+
+LDFLAGS := \
+  -Og \
+  --gc-sections \
+  -Map=$(BUILD_DIR)/$(TARGET).map \
+  $(LDFLAGS) \
+
+COMMA :=,
+LDFLAGS := \
+  $(addprefix -Wl$(COMMA),$(LDFLAGS)) \
+
+LDLIBS := \
+  $(BUILD_DIR)/$(TARGET).lib \
+	$(LDLIBS) \
 
 CC      := arm-none-eabi-gcc
 CXX     := arm-none-eabi-g++
@@ -78,10 +109,10 @@ upload: $(BUILD_DIR)/$(TARGET).hex
 erase:
 	@openocd -f $(OPENOCD_CFG)/erase.cfg
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(BUILD_DIR)/$(TARGET).lib
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(LDLIBS)
 	@echo Linking $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(LD) $(OBJS) -mcpu=$(CPU) -march=$(ARCH) -mthumb --specs=nano.specs -Wl,-Og -Wl,--gc-sections -Wl,--start-group $(BUILD_DIR)/$(TARGET).lib -Wl,--end-group -o $@ -T $(LINKER_CFG) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+	@$(LD) -T $(LINKER_CFG) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -Wl,--start-group $(LDLIBS) -Wl,--end-group -o $@
 
 $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	@echo Creating $(notdir $@)...
@@ -96,24 +127,24 @@ $(BUILD_DIR)/$(TARGET).lib: $(LIB_OBJS)
 $(BUILD_DIR)/%.s.o: %.s $(BUILD_DEPS)
 	@echo Assembling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(AS) -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< -o $@
+	@$(AS) $(ASFLAGS) $< -o $@
 
 $(BUILD_DIR)/%.S.o: %.S $(BUILD_DEPS)
 	@echo Assembling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(CC) -c -g2 -mcpu=$(CPU) -march=$(ARCH) -mthumb $< $(CPPFLAGS) -o $@
+	@$(CC) -c $(ASFLAGS) $< $(CPPFLAGS) -o $@
 
 $(BUILD_DIR)/%.c.o: %.c $(BUILD_DEPS)
 	@echo Compiling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(CC) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CFLAGS) -E $<
-	@$(CC) --specs=nano.specs -x c -g -g2 -Os $(CPPFLAGS) $(CFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c99 -c $< -o $@
+	@$(CC) -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CFLAGS) -E $<
+	@$(CC) -x c $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.cpp.o: %.cpp $(BUILD_DEPS)
 	@echo Compiling $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
-	@$(CXX) --specs=nano.specs -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CXXFLAGS) -E $<
-	@$(CXX) --specs=nano.specs -x c++ -g -g2 -Os $(CPPFLAGS) $(CXXFLAGS) -mcpu=$(CPU) -march=$(ARCH) -mthumb -std=c++17 -c $< -o $@
+	@$(CXX) -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CXXFLAGS) -E $<
+	@$(CXX) -x c++ $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean:
