@@ -1,5 +1,4 @@
-BUILD_DEPS += $(MAKEFILE_LIST)
-BUILD_DEPS := $(BUILD_DEPS)
+BUILD_DEPS := $(BUILD_DEPS) $(MAKEFILE_LIST)
 
 SRCS := $(SRC_FILES)
 
@@ -7,23 +6,10 @@ ifneq ($(SRC_DIRS),)
 SRCS += $(shell find $(SRC_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
 endif
 
-LIB_SRCS := $(LIB_FILES)
-
-ifneq ($(LIB_DIRS),)
-LIB_SRCS += $(shell find $(LIB_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
-endif
-
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(SRCS:%=$(BUILD_DIR)/%.d)
-LIB_OBJS := $(LIB_SRCS:%=$(BUILD_DIR)/%.o)
-LIB_DEPS := $(LIB_SRCS:%=$(BUILD_DIR)/%.d)
-
-$(TARGET)_LIB_OBJS := $(LIB_OBJS)
 
 INC_DIRS += $(shell find $(SRC_DIRS) -maxdepth 1 -type d)
-ifneq ($(LIB_DIRS),)
-INC_DIRS += $(shell find $(LIB_DIRS) -maxdepth 1 -type d)
-endif
 
 INC_FLAGS := $(addprefix -iquote,$(INC_DIRS))
 DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
@@ -37,7 +23,7 @@ LDFLAGS := \
   $(addprefix -Wl$(COMMA),$(LDFLAGS)) \
 
 LDLIBS := \
-  $(BUILD_DIR)/$(TARGET).lib \
+	$(foreach _lib,$(LIBS),$(BUILD_DIR)/$(_lib).lib) \
 	$(LDLIBS) \
 
 CC      := arm-none-eabi-gcc
@@ -48,37 +34,6 @@ AR      := arm-none-eabi-ar
 OBJCOPY := arm-none-eabi-objcopy
 SIZE    := arm-none-eabi-size
 MKDIR_P ?= mkdir -p
-
-.PHONY: all
-all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
-	@$(SIZE) $<
-
-$(BUILD_DIR)/openocd.cfg: $(OPENOCD_CFG)/debug.cfg
-	@cp @< $@
-
-$(BUILD_DIR)/$(TARGET).svd: $(SVD)
-	@cp $(SVD) $@
-
-.PHONY: debug-deps
-debug-deps: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/openocd.cfg $(BUILD_DIR)/$(TARGET).svd
-
-.PHONY: upload
-upload: $(BUILD_DIR)/$(TARGET).hex
-	@openocd -f $(OPENOCD_CFG)/upload.cfg
-
-.PHONY: erase
-erase:
-	@openocd -f $(OPENOCD_CFG)/erase.cfg
-
-# $1 lib name
-define generate_lib_rule
-
-$$(BUILD_DIR)/$(1).lib: $$($1_LIB_OBJS)
-	@echo Building $$(notdir $$@)...
-	@$$(MKDIR_P) $$(dir $$@)
-	@$$(AR) rcs $$@ $$^
-
-endef
 
 # $1 prefix
 # $2 ASFLAGS
@@ -111,6 +66,42 @@ $$(BUILD_DIR)/$(1)%.cpp.o: $(1)%.cpp $$(BUILD_DEPS)
 
 endef
 
+# $1 lib name
+define generate_lib
+
+$(1)_INC_DIRS += $$(shell find $$($(1)_LIB_DIRS) -maxdepth 1 -type d)
+$(1)_INC_FLAGS := $$(addprefix -iquote,$$($(1)_INC_DIRS))
+
+$(1)_CPPFLAGS := \
+  $$($(1)_INC_FLAGS) \
+  $$($(1)_CPPFLAGS) \
+
+$(1)_LIB_SRCS := $$($(1)_LIB_FILES)
+
+ifneq ($$($(1)_LIB_DIRS),)
+$(1)_LIB_SRCS += $$(shell find $$($(1)_LIB_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
+endif
+
+$(1)_LIB_OBJS := $$($(1)_LIB_SRCS:%=$$(BUILD_DIR)/%.o)
+$(1)_LIB_DEPS := $$($(1)_LIB_SRCS:%=$$(BUILD_DIR)/%.d)
+
+DEPS := $(DEPS) $(1)_LIB_DEPS
+
+$$(BUILD_DIR)/$(1).lib: $$($1_LIB_OBJS)
+	@echo Building $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(AR) rcs $$@ $$^
+
+$$(eval $$(call generate_compilation_rules,$$($(1)_LIB_ROOT),$$($(1)_ASFLAGS),$$($(1)_CPPFLAGS),$$($(1)_CFLAGS),$$($(1)_CXXFLAGS)))
+
+endef
+
+.PHONY: all
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
+	@$(SIZE) $<
+
+$(foreach _lib,$(LIBS),$(eval $(call generate_lib,$(_lib))))
+
 $(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(LDLIBS)
 	@echo Linking $(notdir $@)...
 	@$(MKDIR_P) $(dir $@)
@@ -121,40 +112,11 @@ $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	@$(MKDIR_P) $(dir $@)
 	@$(OBJCOPY) -O ihex $< $@
 
-$(eval $(call generate_lib_rule,$(TARGET)))
 $(eval $(call generate_compilation_rules,,$(ASFLAGS),$(CPPFLAGS),$(CFLAGS),$(CXXFLAGS)))
-
-#
-# temporary
-#
-
-fsl_INC_DIRS += $(shell find $(fsl_LIB_DIRS) -maxdepth 1 -type d)
-fsl_INC_FLAGS := $(addprefix -iquote,$(fsl_INC_DIRS))
-
-fsl_CPPFLAGS := \
-  $(fsl_INC_FLAGS) \
-  $(fsl_CPPFLAGS) \
-
-fsl_LIB_SRCS := $(fsl_LIB_FILES)
-
-ifneq ($(fsl_LIB_DIRS),)
-fsl_LIB_SRCS += $(shell find $(fsl_LIB_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
-endif
-
-fsl_LIB_OBJS := $(fsl_LIB_SRCS:%=$(BUILD_DIR)/%.o)
-fsl_LIB_DEPS := $(fsl_LIB_SRCS:%=$(BUILD_DIR)/%.d)
-
-$(eval $(call generate_lib_rule,fsl))
-$(eval $(call generate_compilation_rules,$(fsl_LIB_ROOT),$(fsl_ASFLAGS),$(fsl_CPPFLAGS),$(fsl_CFLAGS),$(fsl_CXXFLAGS)))
-
-#
-# end temporary
-#
 
 .PHONY: clean
 clean:
 	@echo Cleaning...
 	@$(RM) -rf $(BUILD_DIR)
 
-
--include $(DEPS) $(LIB_DEPS)
+-include $(DEPS)

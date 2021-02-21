@@ -1,9 +1,6 @@
-LIB_THINGS := fsl $(LIB_THINGS)
+LIBS := fsl $(LIBS)
 
-fsl_LIB_ROOT := lib/nxp/$(SDK)/devices/MKE06Z4/drivers/
-
-# Temporary, this should be moved into the worker
-LDLIBS := $(BUILD_DIR)/fsl.lib $(LDLIBS)
+fsl_LIB_ROOT := lib/nxp/$(SDK)
 
 fsl_ASFLAGS := $(ASFLAGS)
 fsl_CPPFLAGS := $(CPPFLAGS)

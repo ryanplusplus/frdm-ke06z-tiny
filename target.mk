@@ -1,4 +1,4 @@
-TARGET = tiny
+TARGET = target
 BUILD_DIR ?= ./build
 
 CPU := cortex-m0
@@ -71,8 +71,10 @@ INC_DIRS := \
   lib/tiny/include/hal \
 
 include fsl.mk
+include tiny.mk
 
 include target-worker.mk
+include openocd.mk
 
 .PHONY: watch
 watch:
