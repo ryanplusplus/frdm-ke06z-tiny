@@ -3,7 +3,7 @@ Sample project using [`tiny`](https://github.com/ryanplusplus/tiny) and [FRDM-KE
 
 ## Setup
 - Install `gcc-arm-none-eabi`
-- Install [`openocd`](https://sourceforge.net/p/openocd/code/ci/master/tree/)
+- Install `openocd`
 
 ## Use
 ### Compile
