@@ -3,13 +3,13 @@ BUILD_DIR := ./build
 
 CPU := cortex-m0
 ARCH := armv6-m
-OPENOCD_CFG_DIR := openocd
 LINKER_CFG := linker.ld
 
 SDK := SDK_2.9.0_FRDM-KE06Z
 SVD := lib/nxp/$(SDK)/devices/MKE06Z4/MKE06Z4.xml
 
-DEBUG_ADAPTER ?= jlink
+DEBUG_ADAPTER ?= openocd
+OPENOCD_CFG_DIR := openocd
 BLACK_MAGIC_PORT ?= /dev/ttyACM0
 BLACK_MAGIC_POWER_TARGET ?= N
 
