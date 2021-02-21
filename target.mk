@@ -3,7 +3,7 @@ BUILD_DIR ?= ./build
 
 CPU := cortex-m0
 ARCH := armv6-m
-OPENOCD_CFG := openocd
+OPENOCD_CFG_DIR := openocd
 LINKER_CFG := linker.ld
 
 SDK := SDK_2.9.0_FRDM-KE06Z
@@ -35,7 +35,6 @@ CPPFLAGS := \
   -Wextra \
   -Werror \
   -Wfatal-errors \
-  -Wno-implicit-fallthrough \
 
 CFLAGS := \
   -std=c99 \
@@ -60,21 +59,15 @@ SRC_DIRS := \
   src \
   src/hardware \
 
-LIB_FILES := \
-
-LIB_DIRS := \
-  lib/tiny/src \
-
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
   lib/tiny/include \
   lib/tiny/include/hal \
 
-include fsl.mk
-include tiny.mk
+include lib_fsl.mk
+include lib_tiny.mk
 
-include target-worker.mk
-include openocd.mk
+include tools/tools.mk
 
 .PHONY: watch
 watch:

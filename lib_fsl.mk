@@ -17,5 +17,7 @@ fsl_INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
   lib/nxp/$(SDK)/devices/MKE06Z4 \
 
+fsl_LIB_FILES := \
+
 fsl_LIB_DIRS := \
   lib/nxp/$(SDK)/devices/MKE06Z4/drivers \

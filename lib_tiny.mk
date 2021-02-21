@@ -8,13 +8,12 @@ tiny_CFLAGS := $(CFLAGS)
 tiny_CXXFLAGS := $(CXXFLAGS)
 
 tiny_CPPFLAGS += \
-  -DNDEBUG \
-  -Wno-unused-parameter \
-  -Wno-expansion-to-defined \
-  -Wno-old-style-declaration \
+  -Wno-implicit-fallthrough \
 
 tiny_INC_DIRS := \
   lib/tiny/include \
+
+tiny_LIB_FILES := \
 
 tiny_LIB_DIRS := \
   lib/tiny/src \
