@@ -38,6 +38,7 @@ include lib_fsl.mk
 include lib_tiny.mk
 
 include tools/tools.mk
+include docs.mk
 
 .PHONY: watch
 watch:
