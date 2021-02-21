@@ -83,27 +83,38 @@ $(BUILD_DIR)/$(TARGET).lib: $(LIB_OBJS)
 	@$(MKDIR_P) $(dir $@)
 	@$(AR) rcs $@ $^
 
-$(BUILD_DIR)/%.s.o: %.s $(BUILD_DEPS)
-	@echo Assembling $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(AS) $(ASFLAGS) $< -o $@
+# $1 prefix
+# $2 ASFLAGS
+# $3 CPPFLAGS
+# $4 CFLAGS
+# $5 CXXFLAGS
+define compilation_rules
 
-$(BUILD_DIR)/%.S.o: %.S $(BUILD_DEPS)
-	@echo Assembling $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(CC) -c $(ASFLAGS) $< $(CPPFLAGS) -o $@
+$$(BUILD_DIR)/$(1)%.s.o: $(1)%.s $$(BUILD_DEPS)
+	@echo Assembling $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(AS) $(2) $$< -o $$@
 
-$(BUILD_DIR)/%.c.o: %.c $(BUILD_DEPS)
-	@echo Compiling $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(CC) -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CFLAGS) -E $<
-	@$(CC) -x c $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+$$(BUILD_DIR)/$(1)%.S.o: $(1)%.S $$(BUILD_DEPS)
+	@echo Assembling $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(CC) -c $(2) $$< $(3) -o $$@
 
-$(BUILD_DIR)/%.cpp.o: %.cpp $(BUILD_DEPS)
-	@echo Compiling $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(CXX) -MM -MP -MF "$(@:%.o=%.d)" -MT "$(@)" $(CPPFLAGS) $(CXXFLAGS) -E $<
-	@$(CXX) -x c++ $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+$$(BUILD_DIR)/$(1)%.c.o: $(1)%.c $$(BUILD_DEPS)
+	@echo Compiling $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(CC) -MM -MP -MF "$$(@:%.o=%.d)" -MT "$$@" $(3) $(4) -E $$<
+	@$$(CC) -x c $(3) $(4) -c $$< -o $$@
+
+$$(BUILD_DIR)/$(1)%.cpp.o: $(1)%.cpp $$(BUILD_DEPS)
+	@echo Compiling $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(CXX) -MM -MP -MF "$$(@:%.o=%.d)" -MT "$$@" $(3) $(5) -E $$<
+	@$$(CXX) -x c++ $(3) $(5) -c $$< -o $$@
+
+endef
+
+$(eval $(call compilation_rules,,$(ASFLAGS),$(CPPFLAGS),$(CFLAGS),$(CXXFLAGS)))
 
 .PHONY: clean
 clean:
