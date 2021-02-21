@@ -13,7 +13,7 @@
       "servertype": "jlink",
       "svdFile": "${workspaceFolder}/build/target.svd",
       "device": "MKE06Z128VLK4",
-      "preLaunchTask": "target-debug-deps"
+      "preLaunchTask": "jlink-debug-deps"
     },
     {
       "name": "target (openocd)",
@@ -26,7 +26,7 @@
       "configFiles": [
         "${workspaceRoot}/build/openocd.cfg"
       ],
-      "preLaunchTask": "target-debug-deps"
+      "preLaunchTask": "jlink-debug-deps"
     }
   ]
 }

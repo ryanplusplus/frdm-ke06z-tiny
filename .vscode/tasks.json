@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "target-debug-deps",
+      "label": "jlink-debug-deps",
       "type": "shell",
-      "command": "make -f target.mk debug-deps",
+      "command": "make -f target.mk debug-deps DEBUG_ADAPTER=jlink",
       "presentation": {
         "echo": true,
         "reveal": "silent",
