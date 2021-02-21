@@ -28,6 +28,8 @@ INC_DIRS := \
   lib/tiny/include \
   lib/tiny/include/hal \
 
+SYS_INC_DIRS := \
+
 include lib_fsl.mk
 include lib_tiny.mk
 

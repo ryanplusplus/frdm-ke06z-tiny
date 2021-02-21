@@ -13,6 +13,8 @@ tiny_CPPFLAGS += \
 tiny_INC_DIRS := \
   lib/tiny/include \
 
+tiny_SYS_INC_DIRS := \
+
 tiny_LIB_FILES := \
 
 tiny_LIB_DIRS := \
