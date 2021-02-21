@@ -30,7 +30,6 @@ DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
 
 CPPFLAGS := \
   $(INC_FLAGS) \
-  $(DEFINE_FLAGS) \
   $(CPPFLAGS) \
 
 COMMA :=,
@@ -70,16 +69,6 @@ upload: $(BUILD_DIR)/$(TARGET).hex
 .PHONY: erase
 erase:
 	@openocd -f $(OPENOCD_CFG)/erase.cfg
-
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(LDLIBS)
-	@echo Linking $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(LD) -T $(LINKER_CFG) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -Wl,--start-group $(LDLIBS) -Wl,--end-group -o $@
-
-$(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
-	@echo Creating $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(OBJCOPY) -O ihex $< $@
 
 # $1 lib name
 define generate_lib_rule
@@ -122,8 +111,45 @@ $$(BUILD_DIR)/$(1)%.cpp.o: $(1)%.cpp $$(BUILD_DEPS)
 
 endef
 
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(LDLIBS)
+	@echo Linking $(notdir $@)...
+	@$(MKDIR_P) $(dir $@)
+	@$(LD) -T $(LINKER_CFG) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -Wl,--start-group $(LDLIBS) -Wl,--end-group -o $@
+
+$(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
+	@echo Creating $(notdir $@)...
+	@$(MKDIR_P) $(dir $@)
+	@$(OBJCOPY) -O ihex $< $@
+
 $(eval $(call generate_lib_rule,$(TARGET)))
 $(eval $(call generate_compilation_rules,,$(ASFLAGS),$(CPPFLAGS),$(CFLAGS),$(CXXFLAGS)))
+
+#
+# temporary
+#
+
+fsl_INC_DIRS += $(shell find $(fsl_LIB_DIRS) -maxdepth 1 -type d)
+fsl_INC_FLAGS := $(addprefix -iquote,$(fsl_INC_DIRS))
+
+fsl_CPPFLAGS := \
+  $(fsl_INC_FLAGS) \
+  $(fsl_CPPFLAGS) \
+
+fsl_LIB_SRCS := $(fsl_LIB_FILES)
+
+ifneq ($(fsl_LIB_DIRS),)
+fsl_LIB_SRCS += $(shell find $(fsl_LIB_DIRS) -maxdepth 1 -name *.c -or -name *.s -or -name *.S)
+endif
+
+fsl_LIB_OBJS := $(fsl_LIB_SRCS:%=$(BUILD_DIR)/%.o)
+fsl_LIB_DEPS := $(fsl_LIB_SRCS:%=$(BUILD_DIR)/%.d)
+
+$(eval $(call generate_lib_rule,fsl))
+$(eval $(call generate_compilation_rules,$(fsl_LIB_ROOT),$(fsl_ASFLAGS),$(fsl_CPPFLAGS),$(fsl_CFLAGS),$(fsl_CXXFLAGS)))
+
+#
+# end temporary
+#
 
 .PHONY: clean
 clean:

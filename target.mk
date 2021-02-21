@@ -13,16 +13,12 @@ DEFINES := \
   CPU_MKE06Z128VLK4 \
   __NO_SYSTEM_INIT \
   __STARTUP_CLEAR_BSS \
-  NDEBUG \
 
 ASFLAGS := \
   -mcpu=$(CPU) \
   -march=$(ARCH) \
   -mthumb \
   -g2 \
-
-CFLAGS := \
-  -std=c99 \
 
 CPPFLAGS := \
   --specs=nano.specs \
@@ -32,23 +28,17 @@ CPPFLAGS := \
   -g \
   -g2 \
   -Os \
-  $(INC_FLAGS) \
-  $(DEFINE_FLAGS) \
+  $(addprefix -D,$(DEFINES)) \
   -fdata-sections \
   -ffunction-sections \
   -Wall \
   -Wextra \
   -Werror \
   -Wfatal-errors \
-  -Wno-unused-parameter \
   -Wno-implicit-fallthrough \
-  -Wno-expansion-to-defined \
-  -Wno-old-style-declaration \
 
-LDFLAGS := \
-  -Og \
-  --gc-sections \
-  -Map=$(BUILD_DIR)/$(TARGET).map \
+CFLAGS := \
+  -std=c99 \
 
 CXXFLAGS := \
   -fno-rtti \
@@ -57,6 +47,11 @@ CXXFLAGS := \
   -fno-use-cxa-atexit \
   -Weffc++ \
   -std=c++17 \
+
+LDFLAGS := \
+  -Og \
+  --gc-sections \
+  -Map=$(BUILD_DIR)/$(TARGET).map \
 
 SRC_FILES := \
 
@@ -68,13 +63,14 @@ SRC_DIRS := \
 LIB_FILES := \
 
 LIB_DIRS := \
-  lib/nxp/$(SDK)/devices/MKE06Z4/drivers/ \
   lib/tiny/src \
 
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
   lib/tiny/include \
   lib/tiny/include/hal \
+
+include fsl.mk
 
 include target-worker.mk
 
