@@ -1,5 +1,5 @@
-TARGET = target
-BUILD_DIR ?= ./build
+TARGET := target
+BUILD_DIR := ./build
 
 CPU := cortex-m0
 ARCH := armv6-m
@@ -14,43 +14,7 @@ DEFINES := \
   __NO_SYSTEM_INIT \
   __STARTUP_CLEAR_BSS \
 
-ASFLAGS := \
-  -mcpu=$(CPU) \
-  -march=$(ARCH) \
-  -mthumb \
-  -g2 \
-
-CPPFLAGS := \
-  --specs=nano.specs \
-  -mcpu=$(CPU) \
-  -march=$(ARCH) \
-  -mthumb \
-  -g \
-  -g2 \
-  -Os \
-  $(addprefix -D,$(DEFINES)) \
-  -fdata-sections \
-  -ffunction-sections \
-  -Wall \
-  -Wextra \
-  -Werror \
-  -Wfatal-errors \
-
-CFLAGS := \
-  -std=c99 \
-
-CXXFLAGS := \
-  -fno-rtti \
-  -fno-exceptions \
-  -fno-non-call-exceptions \
-  -fno-use-cxa-atexit \
-  -Weffc++ \
-  -std=c++17 \
-
-LDFLAGS := \
-  -Og \
-  --gc-sections \
-  -Map=$(BUILD_DIR)/$(TARGET).map \
+include tools/defaults.mk
 
 SRC_FILES := \
 
