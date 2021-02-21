@@ -18,6 +18,8 @@ DEPS := $(SRCS:%=$(BUILD_DIR)/%.d)
 LIB_OBJS := $(LIB_SRCS:%=$(BUILD_DIR)/%.o)
 LIB_DEPS := $(LIB_SRCS:%=$(BUILD_DIR)/%.d)
 
+$(TARGET)_LIB_OBJS := $(LIB_OBJS)
+
 INC_DIRS += $(shell find $(SRC_DIRS) -maxdepth 1 -type d)
 ifneq ($(LIB_DIRS),)
 INC_DIRS += $(shell find $(LIB_DIRS) -maxdepth 1 -type d)
@@ -46,6 +48,7 @@ LD      := arm-none-eabi-gcc
 AR      := arm-none-eabi-ar
 OBJCOPY := arm-none-eabi-objcopy
 SIZE    := arm-none-eabi-size
+MKDIR_P ?= mkdir -p
 
 .PHONY: all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex
@@ -78,17 +81,22 @@ $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	@$(MKDIR_P) $(dir $@)
 	@$(OBJCOPY) -O ihex $< $@
 
-$(BUILD_DIR)/$(TARGET).lib: $(LIB_OBJS)
-	@echo Building $(notdir $@)...
-	@$(MKDIR_P) $(dir $@)
-	@$(AR) rcs $@ $^
+# $1 lib name
+define generate_lib_rule
+
+$$(BUILD_DIR)/$(1).lib: $$($1_LIB_OBJS)
+	@echo Building $$(notdir $$@)...
+	@$$(MKDIR_P) $$(dir $$@)
+	@$$(AR) rcs $$@ $$^
+
+endef
 
 # $1 prefix
 # $2 ASFLAGS
 # $3 CPPFLAGS
 # $4 CFLAGS
 # $5 CXXFLAGS
-define compilation_rules
+define generate_compilation_rules
 
 $$(BUILD_DIR)/$(1)%.s.o: $(1)%.s $$(BUILD_DEPS)
 	@echo Assembling $$(notdir $$@)...
@@ -114,13 +122,13 @@ $$(BUILD_DIR)/$(1)%.cpp.o: $(1)%.cpp $$(BUILD_DEPS)
 
 endef
 
-$(eval $(call compilation_rules,,$(ASFLAGS),$(CPPFLAGS),$(CFLAGS),$(CXXFLAGS)))
+$(eval $(call generate_lib_rule,$(TARGET)))
+$(eval $(call generate_compilation_rules,,$(ASFLAGS),$(CPPFLAGS),$(CFLAGS),$(CXXFLAGS)))
 
 .PHONY: clean
 clean:
 	@echo Cleaning...
 	@$(RM) -rf $(BUILD_DIR)
 
-MKDIR_P ?= mkdir -p
 
 -include $(DEPS) $(LIB_DEPS)
