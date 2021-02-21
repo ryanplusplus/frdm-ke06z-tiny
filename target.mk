@@ -15,11 +15,48 @@ DEFINES := \
   __STARTUP_CLEAR_BSS \
   NDEBUG \
 
+ASFLAGS := \
+  -mcpu=$(CPU) \
+  -march=$(ARCH) \
+  -mthumb \
+  -g2 \
+
+CFLAGS := \
+  -std=c99 \
+
 CPPFLAGS := \
+  --specs=nano.specs \
+  -mcpu=$(CPU) \
+  -march=$(ARCH) \
+  -mthumb \
+  -g \
+  -g2 \
+  -Os \
+  $(INC_FLAGS) \
+  $(DEFINE_FLAGS) \
+  -fdata-sections \
+  -ffunction-sections \
+  -Wall \
+  -Wextra \
+  -Werror \
+  -Wfatal-errors \
   -Wno-unused-parameter \
   -Wno-implicit-fallthrough \
   -Wno-expansion-to-defined \
   -Wno-old-style-declaration \
+
+LDFLAGS := \
+  -Og \
+  --gc-sections \
+  -Map=$(BUILD_DIR)/$(TARGET).map \
+
+CXXFLAGS := \
+  -fno-rtti \
+  -fno-exceptions \
+  -fno-non-call-exceptions \
+  -fno-use-cxa-atexit \
+  -Weffc++ \
+  -std=c++17 \
 
 SRC_FILES := \
 

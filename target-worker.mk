@@ -26,51 +26,10 @@ endif
 INC_FLAGS := $(addprefix -iquote,$(INC_DIRS))
 DEFINE_FLAGS := $(addprefix -D,$(DEFINES))
 
-ARCH_FLAGS := \
-
 CPPFLAGS := \
-  --specs=nano.specs \
-  -mcpu=$(CPU) \
-  -march=$(ARCH) \
-  -mthumb \
-  -g \
-  -g2 \
-  -Os \
   $(INC_FLAGS) \
   $(DEFINE_FLAGS) \
-  -fdata-sections \
-  -ffunction-sections \
-  -Wall \
-  -Wextra \
-  -Werror \
-  -Wfatal-errors \
   $(CPPFLAGS) \
-
-ASFLAGS := \
-  -mcpu=$(CPU) \
-  -march=$(ARCH) \
-  -mthumb \
-  -g2 \
-  $(ASFLAGS) \
-
-CFLAGS := \
-  -std=c99 \
-  $(CFLAGS) \
-
-CXXFLAGS := \
-  -fno-rtti \
-  -fno-exceptions \
-  -fno-non-call-exceptions \
-  -fno-use-cxa-atexit \
-  -Weffc++ \
-  -std=c++17 \
-  $(CXXFLAGS) \
-
-LDFLAGS := \
-  -Og \
-  --gc-sections \
-  -Map=$(BUILD_DIR)/$(TARGET).map \
-  $(LDFLAGS) \
 
 COMMA :=,
 LDFLAGS := \
