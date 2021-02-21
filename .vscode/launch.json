@@ -7,22 +7,22 @@
     {
       "name": "target (jlink)",
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/tiny.elf",
+      "executable": "${workspaceFolder}/build/target.elf",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "jlink",
-      "svdFile": "${workspaceFolder}/build/tiny.svd",
+      "svdFile": "${workspaceFolder}/build/target.svd",
       "device": "MKE06Z128VLK4",
       "preLaunchTask": "target-debug-deps"
     },
     {
       "name": "target (openocd)",
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder}/build/tiny.elf",
+      "executable": "${workspaceFolder}/build/target.elf",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
-      "svdFile": "${workspaceFolder}/build/tiny.svd",
+      "svdFile": "${workspaceFolder}/build/target.svd",
       "configFiles": [
         "${workspaceRoot}/build/openocd.cfg"
       ],
