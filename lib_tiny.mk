@@ -1,5 +1,8 @@
 LIBS := tiny $(LIBS)
 
+INC_DIRS += \
+  lib/tiny/include \
+
 tiny_LIB_ROOT := lib/tiny
 
 tiny_ASFLAGS := $(ASFLAGS)

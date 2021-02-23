@@ -5,8 +5,10 @@ CPU := cortex-m0
 ARCH := armv6-m
 LINKER_CFG := linker.ld
 
+DEVICE := MKE06Z4
+
 SDK := SDK_2.9.0_FRDM-KE06Z
-SVD := lib/nxp/$(SDK)/devices/MKE06Z4/MKE06Z4.xml
+SVD := lib/nxp/$(SDK)/devices/$(DEVICE)/$(DEVICE).xml
 
 DEBUG_ADAPTER ?= openocd
 OPENOCD_CFG_DIR := openocd
@@ -20,19 +22,17 @@ DEFINES := \
 
 include tools/defaults.mk
 
-SRC_FILES := \
-
-SRC_DIRS := \
-  lib/nxp/$(SDK)/devices/MKE06Z4 \
-  src \
-  src/hardware \
-
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
-  lib/tiny/include \
-  lib/tiny/include/hal \
 
 SYS_INC_DIRS := \
+
+SRC_FILES := \
+  lib/nxp/$(SDK)/devices/$(DEVICE)/system_$(DEVICE).c \
+
+SRC_DIRS := \
+  src \
+  src/hardware \
 
 include lib_fsl.mk
 include lib_tiny.mk
