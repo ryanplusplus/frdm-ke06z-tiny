@@ -3,4 +3,4 @@
 	url = https://github.com/ryanplusplus/tiny
 [submodule "tools"]
 	path = tools
-	url = https://github.com/ryanplusplus/gcc-arm-none-eabi-tools
+	url = https://github.com/ryanplusplus/arm-none-eabi-gcc-tools
