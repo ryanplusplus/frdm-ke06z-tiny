@@ -6,7 +6,7 @@
     {
       "label": "jlink-debug-deps",
       "type": "shell",
-      "command": "make -f target.mk debug-deps DEBUG_ADAPTER=other",
+      "command": "make -f target.mk debug-deps DEBUG_ADAPTER=jlink",
       "presentation": {
         "echo": true,
         "reveal": "silent",
