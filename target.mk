@@ -23,6 +23,10 @@ DEFINES := \
 
 include tools/defaults.mk
 
+CPPFLAGS += \
+  -flto \
+  -fwhole-program \
+
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
 

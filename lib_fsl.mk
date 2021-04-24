@@ -16,6 +16,7 @@ fsl_CPPFLAGS += \
   -Wno-unused-parameter \
   -Wno-expansion-to-defined \
   -Wno-old-style-declaration \
+  -Wno-overflow
 
 fsl_INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
