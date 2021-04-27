@@ -10,6 +10,7 @@ fsl_ASFLAGS := $(ASFLAGS)
 fsl_CPPFLAGS := $(CPPFLAGS)
 fsl_CFLAGS := $(CFLAGS)
 fsl_CXXFLAGS := $(CXXFLAGS)
+fsl_DEFINES := $(DEFINES)
 
 fsl_CPPFLAGS += \
   -DNDEBUG \
@@ -24,7 +25,7 @@ fsl_INC_DIRS := \
 
 fsl_SYS_INC_DIRS := \
 
-fsl_LIB_FILES := \
+fsl_SRC_FILES := \
 
-fsl_LIB_DIRS := \
+fsl_SRC_DIRS := \
   lib/nxp/$(SDK)/devices/$(DEVICE)/drivers \
