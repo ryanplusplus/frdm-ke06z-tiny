@@ -2,7 +2,6 @@ TARGET := target
 BUILD_DIR := build
 
 CPU := cortex-m0
-ARCH := armv6-m
 LINKER_CFG := linker.ld
 
 DEVICE := MKE06Z4
