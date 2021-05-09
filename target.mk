@@ -26,6 +26,8 @@ CPPFLAGS += \
   -flto \
   -fwhole-program \
 
+CPPFLAGS := $(subst -nostartfiles,,$(CPPFLAGS))
+
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \
 
