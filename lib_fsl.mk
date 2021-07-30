@@ -4,8 +4,6 @@ INC_DIRS += \
   lib/nxp/$(SDK)/devices/$(DEVICE) \
   lib/nxp/$(SDK)/devices/$(DEVICE)/drivers \
 
-fsl_LIB_ROOT := lib/nxp/$(SDK)
-
 fsl_ASFLAGS := $(ASFLAGS)
 fsl_CPPFLAGS := $(CPPFLAGS)
 fsl_CFLAGS := $(CFLAGS)
