@@ -44,6 +44,6 @@ void watchdog_enable_kicker(tiny_timer_group_t* timer_group)
     timer_group,
     &timer,
     kick_period,
-    kick_watchdog,
-    NULL);
+    NULL,
+    kick_watchdog);
 }
