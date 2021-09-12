@@ -23,6 +23,7 @@ DEFINES := \
 include tools/defaults.mk
 
 CPPFLAGS += \
+  -Wno-pedantic \
   -flto \
   -fwhole-program \
 
