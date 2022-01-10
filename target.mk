@@ -42,7 +42,7 @@ SRC_DIRS := \
   src/hardware \
 
 include lib_fsl.mk
-include lib_tiny.mk
+include lib/tiny/lib_tiny.mk
 
 include tools/tools.mk
 include docs.mk
