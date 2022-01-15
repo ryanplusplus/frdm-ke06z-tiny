@@ -6,7 +6,7 @@ LINKER_SCRIPT := linker.ld
 
 DEVICE := MKE06Z4
 
-SDK := SDK_2.9.0_FRDM-KE06Z
+SDK := SDK_2.11.0_FRDM-KE06Z
 SVD := lib/nxp/$(SDK)/devices/$(DEVICE)/$(DEVICE).xml
 
 DEBUG_ADAPTER ?= jlink
@@ -24,7 +24,6 @@ DEFINES := \
 include tools/defaults.mk
 
 CPPFLAGS += \
-  -Wno-pedantic \
   -flto \
   -fwhole-program \
 

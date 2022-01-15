@@ -1,6 +1,6 @@
 {
   "env": {
-    "sdk": "SDK_2.8.0_FRDM-KE06Z"
+    "sdk": "SDK_2.11.0_FRDM-KE06Z"
   },
   "configurations": [
     {
@@ -9,10 +9,11 @@
         "CPU_MKE06Z128VLK4",
         "__NO_SYSTEM_INIT",
         "__STARTUP_CLEAR_BSS",
+        "__START=main",
         "NDEBUG"
       ],
       "includePath": [
-        "${workspaceFolder}/lib/nxp/${sdk}/CMSIS/Include",
+        "${workspaceFolder}/lib/nxp/${sdk}/CMSIS/Core/Include",
         "${workspaceFolder}/lib/nxp/${sdk}/devices/MKE06Z4",
         "${workspaceFolder}/lib/nxp/${sdk}/devices/MKE06Z4/drivers",
         "${workspaceFolder}/lib/tiny/include",
@@ -22,8 +23,7 @@
       ],
       "intelliSenseMode": "gcc-arm",
       "cStandard": "c11",
-      "cppStandard": "c++17",
-      "compilerPath": "/usr/bin/arm-none-eabi-gcc"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4
