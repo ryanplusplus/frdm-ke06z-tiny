@@ -12,8 +12,6 @@
 #include "uart.h"
 #include "hello_world.h"
 
-#include "fsl_gpio.h"
-
 static tiny_timer_group_t timer_group;
 
 int main(void)
