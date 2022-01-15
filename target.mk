@@ -19,6 +19,7 @@ DEFINES := \
   CPU_MKE06Z128VLK4 \
   __NO_SYSTEM_INIT \
   __STARTUP_CLEAR_BSS \
+  __START=main \
 
 include tools/defaults.mk
 
@@ -26,8 +27,6 @@ CPPFLAGS += \
   -Wno-pedantic \
   -flto \
   -fwhole-program \
-
-CPPFLAGS := $(subst -nostartfiles,,$(CPPFLAGS))
 
 INC_DIRS := \
   lib/nxp/$(SDK)/CMSIS/Include \

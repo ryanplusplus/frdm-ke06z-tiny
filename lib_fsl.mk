@@ -4,6 +4,9 @@ INC_DIRS += \
   lib/nxp/$(SDK)/devices/$(DEVICE) \
   lib/nxp/$(SDK)/devices/$(DEVICE)/drivers \
 
+CPPFLAGS += \
+  -DNDEBUG \
+
 fsl_ASFLAGS := $(ASFLAGS)
 fsl_CPPFLAGS := $(CPPFLAGS)
 fsl_CFLAGS := $(CFLAGS)
