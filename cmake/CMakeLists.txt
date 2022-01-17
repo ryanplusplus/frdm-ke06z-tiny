@@ -68,7 +68,7 @@ add_definitions(
   -D__START=main
 )
 
-add_subdirectory(fsl)
+include(fsl.cmake)
 add_subdirectory(../lib/tiny tiny-build)
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES})
