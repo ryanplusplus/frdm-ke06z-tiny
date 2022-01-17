@@ -33,7 +33,6 @@ INC_DIRS := \
 SYS_INC_DIRS := \
 
 SRC_FILES := \
-  lib/nxp/$(SDK)/devices/$(DEVICE)/system_$(DEVICE).c \
 
 SRC_DIRS := \
   src \
