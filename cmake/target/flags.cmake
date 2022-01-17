@@ -27,7 +27,7 @@ add_link_options(
   ${COMPILE_AND_LINK_OPTIONS}
   -Wl,--gc-sections
   -Wl,-Map=${PROJECT_NAME}.map
-  -T ../linker.ld
+  -T ${ROOT}/linker.ld
 )
 
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)

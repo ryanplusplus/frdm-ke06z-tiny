@@ -11,21 +11,23 @@ project(target)
 set(SDK SDK_2.11.0_FRDM-KE06Z)
 set(DEVICE MKE06Z4)
 
+set(ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
+
 set(target_SRC
-  ../src/main.c
-  ../src/start.S
-  ../src/hello_world.c
-  ../src/hardware/clock.c
-  ../src/hardware/flash_test.c
-  ../src/hardware/heartbeat.c
-  ../src/hardware/systick.c
-  ../src/hardware/uart.c
-  ../src/hardware/watchdog.c
+  ${ROOT}/src/main.c
+  ${ROOT}/src/start.S
+  ${ROOT}/src/hello_world.c
+  ${ROOT}/src/hardware/clock.c
+  ${ROOT}/src/hardware/flash_test.c
+  ${ROOT}/src/hardware/heartbeat.c
+  ${ROOT}/src/hardware/systick.c
+  ${ROOT}/src/hardware/uart.c
+  ${ROOT}/src/hardware/watchdog.c
 )
 
 include_directories(
-  ../src
-  ../src/hardware
+  ${ROOT}/src
+  ${ROOT}/src/hardware
 )
 
 add_definitions(
@@ -40,7 +42,7 @@ include(flags.cmake)
 add_executable(${PROJECT_NAME}.elf ${target_SRC})
 
 include(fsl.cmake)
-include(../lib/tiny/CMakeLists.txt)
+include(${ROOT}/lib/tiny/CMakeLists.txt)
 
 target_link_libraries(${PROJECT_NAME}.elf
   tiny
