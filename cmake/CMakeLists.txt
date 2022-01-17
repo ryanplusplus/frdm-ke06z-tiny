@@ -7,7 +7,7 @@ set(CMAKE_C_COMPILER arm-none-eabi-gcc CACHE PATH "" FORCE)
 
 enable_language(C ASM)
 
-project(cmake-target)
+project(target)
 
 set(SDK SDK_2.11.0_FRDM-KE06Z)
 set(DEVICE MKE06Z4)
@@ -24,7 +24,6 @@ set(SOURCES
   ../src/hardware/systick.c
   ../src/hardware/uart.c
   ../src/hardware/watchdog.c
-  ../lib/nxp/${SDK}/devices/${DEVICE}/system_${DEVICE}.c
 )
 
 include_directories(
@@ -74,4 +73,8 @@ add_subdirectory(../lib/tiny tiny-build)
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME}.elf tiny fsl)
+target_link_libraries(${PROJECT_NAME}.elf
+  tiny
+  fsl
+  fsl-system
+)

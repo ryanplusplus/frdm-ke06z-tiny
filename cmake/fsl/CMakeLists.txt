@@ -1,3 +1,9 @@
+add_library(fsl-system INTERFACE)
+
+target_sources(fsl-system INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../../lib/nxp/${SDK}/devices/${DEVICE}/system_${DEVICE}.c
+)
+
 add_library(fsl)
 
 target_sources(fsl PRIVATE
