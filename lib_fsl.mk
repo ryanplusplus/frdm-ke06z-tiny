@@ -27,6 +27,9 @@ fsl_SRC_FILES := \
 fsl_SRC_DIRS := \
   lib/nxp/$(SDK)/devices/$(DEVICE)/drivers \
 
+SRC_FILES += \
+  lib/nxp/$(SDK)/devices/$(DEVICE)/system_$(DEVICE).c \
+
 INC_DIRS += \
   $(fsl_INC_DIRS) \
 
