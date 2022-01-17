@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.11.1)
 
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_CROSSCOMPILING 1)
+set(CMAKE_C_COMPILER arm-none-eabi-gcc CACHE PATH "" FORCE)
 
 project(target)
 
