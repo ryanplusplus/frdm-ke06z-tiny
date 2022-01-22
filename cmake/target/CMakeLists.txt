@@ -6,7 +6,9 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_CROSSCOMPILING 1)
 set(CMAKE_C_COMPILER arm-none-eabi-gcc CACHE PATH "" FORCE)
 
-project(target)
+project(target
+  LANGUAGES C ASM
+)
 
 set(SDK SDK_2.11.0_FRDM-KE06Z)
 set(DEVICE MKE06Z4)

@@ -1,5 +1,3 @@
-enable_language(C ASM)
-
 set(COMPILE_AND_LINK_OPTIONS
   --specs=nano.specs
   -mcpu=cortex-m0plus
