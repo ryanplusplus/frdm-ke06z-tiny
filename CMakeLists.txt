@@ -13,7 +13,7 @@ project(target
 set(SDK SDK_2.11.0_FRDM-KE06Z)
 set(DEVICE MKE06Z4)
 
-set(ROOT ${CMAKE_CURRENT_LIST_DIR}/../..)
+set(ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 set(target_SRC
   ${ROOT}/src/main.c
@@ -39,11 +39,11 @@ add_definitions(
   -D__START=main
 )
 
-include(flags.cmake)
+include(cmake/flags.cmake)
 
 add_executable(${PROJECT_NAME}.elf ${target_SRC})
 
-include(fsl.cmake)
+include(cmake/fsl.cmake)
 include(${ROOT}/lib/tiny/CMakeLists.txt)
 
 target_link_libraries(${PROJECT_NAME}.elf
