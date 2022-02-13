@@ -1,11 +1,7 @@
-LIBS := fsl $(LIBS)
+$(call create_lib_with_defaults,fsl)
 
 DEFINES += NDEBUG
 
-fsl_ASFLAGS := $(ASFLAGS)
-fsl_CPPFLAGS := $(CPPFLAGS)
-fsl_CFLAGS := $(CFLAGS)
-fsl_CXXFLAGS := $(CXXFLAGS)
 fsl_DEFINES := $(DEFINES)
 
 fsl_CPPFLAGS += \
