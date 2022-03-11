@@ -6,7 +6,7 @@
     {
       "label": "jlink-debug-deps",
       "type": "shell",
-      "command": "make -f target.mk debug-deps DEBUG_ADAPTER=jlink",
+      "command": "make -j16 -f target.mk debug-deps DEBUG_ADAPTER=jlink",
       "presentation": {
         "echo": true,
         "reveal": "silent",
@@ -19,7 +19,7 @@
     {
       "label": "openocd-debug-deps",
       "type": "shell",
-      "command": "make -f target.mk debug-deps DEBUG_ADAPTER=openocd",
+      "command": "make -j16 -f target.mk debug-deps DEBUG_ADAPTER=openocd",
       "presentation": {
         "echo": true,
         "reveal": "silent",
