@@ -12,9 +12,8 @@ enum {
 
 static tiny_timer_t timer;
 
-static void kick_watchdog(tiny_timer_group_t* group, void* context)
+static void kick_watchdog(void* context)
 {
-  (void)group;
   (void)context;
   WDOG8_Refresh(WDOG);
 }
